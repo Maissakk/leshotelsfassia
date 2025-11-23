@@ -9,42 +9,660 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<style>
+			/* CRITICAL: Reset all global styles to prevent conflicts */
+			.hotel-page * {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			:root {
+				--gold: #C5A572;
+				--dark: #1a1a1a;
+				--off-white: #f8f6f3;
+				--light-gray: #e8e5e0;
+				--text-dark: #2a2a2a;
+				--text-light: #7a7a7a;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				font-family: 'Montserrat', sans-serif;
+				color: var(--text-dark);
+				background: var(--off-white);
+				overflow-x: hidden;
+			}
+
+			/* MAIN WRAPPER - Full Width */
+			.hotel-page {
+				width: 100%;
+				max-width: 100% !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			h1, h2, h3, h4 {
+				font-family: 'Cormorant Garamond', serif;
+				font-weight: 300;
+				letter-spacing: 1px;
+			}
+
+			/* === HERO SECTION === */
+			.hero {
+				height: 100vh;
+				width: 100%;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+				overflow: hidden;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.hero::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(197,165,114,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat center center;
+				opacity: 0.3;
+			}
+
+			.hero-content {
+				position: relative;
+				z-index: 2;
+				text-align: center;
+				color: var(--off-white);
+				max-width: 900px;
+				padding: 2rem;
+				animation: fadeIn 1.5s ease-out;
+			}
+
+			.hero-subtitle {
+				font-size: 0.9rem;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: var(--gold);
+				margin-bottom: 1.5rem;
+				font-weight: 400;
+			}
+
+			.hero h1 {
+				font-size: clamp(3rem, 8vw, 6rem);
+				line-height: 1.1;
+				margin-bottom: 1.5rem;
+				font-weight: 300;
+			}
+
+			.hero-description {
+				font-size: 1.1rem;
+				line-height: 1.8;
+				color: rgba(248, 246, 243, 0.8);
+				max-width: 600px;
+				margin: 0 auto 3rem;
+				font-weight: 300;
+			}
+
+			.hero-cta {
+				display: inline-block;
+				padding: 1.2rem 3rem;
+				background: transparent;
+				color: var(--gold);
+				border: 1px solid var(--gold);
+				text-decoration: none;
+				font-size: 0.85rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				font-weight: 500;
+			}
+
+			.hero-cta:hover {
+				background: var(--gold);
+				color: var(--dark);
+				transform: translateY(-2px);
+			}
+
+			.scroll-indicator {
+				position: absolute;
+				bottom: 3rem;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--gold);
+				font-size: 0.75rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				animation: bounce 2s infinite;
+			}
+
+			.scroll-indicator::after {
+				content: '↓';
+				font-size: 1.2rem;
+			}
+
+			/* === INTRO SECTION === */
+			.intro-section {
+				width: 100%;
+				padding: 8rem 2rem;
+				background: var(--off-white);
+				text-align: center;
+			}
+
+			.intro-section h2 {
+				font-size: clamp(2.5rem, 5vw, 4rem);
+				color: var(--text-dark);
+				margin-bottom: 2rem;
+				line-height: 1.2;
+			}
+
+			.intro-text {
+				max-width: 700px;
+				margin: 0 auto;
+				font-size: 1.1rem;
+				line-height: 1.9;
+				color: var(--text-light);
+				font-weight: 300;
+			}
+
+			.divider {
+				width: 80px;
+				height: 1px;
+				background: var(--gold);
+				margin: 3rem auto;
+			}
+
+			/* === PROPERTIES SECTION === */
+			.properties {
+				width: 100%;
+				padding: 0;
+				margin: 0;
+				background: var(--dark);
+			}
+
+			.property {
+				width: 100%;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				min-height: 600px;
+			}
+
+			.property:nth-child(even) .property-image {
+				order: 2;
+			}
+
+			.property-image {
+				background: linear-gradient(135deg, var(--gold) 0%, #a88a5c 100%);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.property-image::before {
+				content: '🏨';
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-size: 10rem;
+				opacity: 0.15;
+			}
+
+			.property-content {
+				padding: 6rem 4rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				color: var(--off-white);
+			}
+
+			.property-label {
+				font-size: 0.8rem;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: var(--gold);
+				margin-bottom: 1.5rem;
+				font-weight: 500;
+			}
+
+			.property h3 {
+				font-size: clamp(2rem, 4vw, 3rem);
+				margin-bottom: 1.5rem;
+				line-height: 1.2;
+			}
+
+			.property-description {
+				font-size: 1rem;
+				line-height: 1.8;
+				color: rgba(248, 246, 243, 0.7);
+				margin-bottom: 2rem;
+				font-weight: 300;
+			}
+
+			.property-features {
+				list-style: none;
+				margin-bottom: 3rem;
+			}
+
+			.property-features li {
+				padding: 0.5rem 0;
+				color: rgba(248, 246, 243, 0.8);
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+			}
+
+			.property-features li::before {
+				content: '';
+				width: 6px;
+				height: 1px;
+				background: var(--gold);
+			}
+
+			.property-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 1rem;
+				color: var(--gold);
+				text-decoration: none;
+				font-size: 0.85rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				transition: gap 0.3s ease;
+				font-weight: 500;
+			}
+
+			.property-link:hover {
+				gap: 1.5rem;
+			}
+
+			.property-link::after {
+				content: '→';
+				transition: transform 0.3s ease;
+			}
+
+			.property-link:hover::after {
+				transform: translateX(5px);
+			}
+
+			/* === FEATURES SECTION === */
+			.features-luxury {
+				width: 100%;
+				padding: 8rem 2rem;
+				background: var(--off-white);
+			}
+
+			.features-header {
+				text-align: center;
+				margin-bottom: 5rem;
+			}
+
+			.features-header h2 {
+				font-size: clamp(2.5rem, 5vw, 4rem);
+				color: var(--text-dark);
+				margin-bottom: 1rem;
+			}
+
+			.features-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 3rem;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			.feature-card {
+				text-align: center;
+				padding: 3rem 2rem;
+				background: white;
+				border-radius: 2px;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.feature-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+			}
+
+			.feature-icon {
+				font-size: 2.5rem;
+				margin-bottom: 1.5rem;
+				display: block;
+			}
+
+			.feature-card h4 {
+				font-size: 1.3rem;
+				margin-bottom: 1rem;
+				color: var(--text-dark);
+			}
+
+			.feature-card p {
+				font-size: 0.95rem;
+				line-height: 1.7;
+				color: var(--text-light);
+				font-weight: 300;
+			}
+
+			/* === EXPERIENCE SECTION === */
+			.experience {
+				width: 100%;
+				background: var(--dark);
+				padding: 8rem 2rem;
+				text-align: center;
+				color: var(--off-white);
+			}
+
+			.experience h2 {
+				font-size: clamp(2.5rem, 5vw, 4rem);
+				margin-bottom: 2rem;
+			}
+
+			.experience p {
+				max-width: 600px;
+				margin: 0 auto 3rem;
+				font-size: 1.1rem;
+				line-height: 1.8;
+				color: rgba(248, 246, 243, 0.7);
+				font-weight: 300;
+			}
+
+			.experience-cta {
+				display: inline-block;
+				padding: 1.2rem 3rem;
+				background: var(--gold);
+				color: var(--dark);
+				text-decoration: none;
+				font-size: 0.85rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				transition: all 0.4s ease;
+				font-weight: 600;
+			}
+
+			.experience-cta:hover {
+				background: #d4b88a;
+				transform: translateY(-2px);
+				box-shadow: 0 10px 30px rgba(197, 165, 114, 0.3);
+			}
+
+			/* === CONTACT SECTION === */
+			.contact-elegant {
+				width: 100%;
+				padding: 8rem 2rem;
+				background: var(--off-white);
+			}
+
+			.contact-container {
+				max-width: 1000px;
+				margin: 0 auto;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 4rem;
+			}
+
+			.contact-item {
+				text-align: center;
+			}
+
+			.contact-item h4 {
+				font-size: 1.5rem;
+				margin-bottom: 1rem;
+				color: var(--text-dark);
+			}
+
+			.contact-item p {
+				font-size: 0.95rem;
+				color: var(--text-light);
+				line-height: 1.8;
+			}
+
+			.contact-item a {
+				color: var(--gold);
+				text-decoration: none;
+				transition: color 0.3s ease;
+			}
+
+			.contact-item a:hover {
+				color: var(--text-dark);
+			}
+
+			/* === ANIMATIONS === */
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes bounce {
+				0%, 100% {
+					transform: translate(-50%, 0);
+				}
+				50% {
+					transform: translate(-50%, 10px);
+				}
+			}
+
+			/* === RESPONSIVE === */
+			@media (max-width: 968px) {
+				.property {
+					grid-template-columns: 1fr;
+				}
+
+				.property:nth-child(even) .property-image {
+					order: 1;
+				}
+
+				.property-content {
+					padding: 4rem 2rem;
+				}
+
+				.property-image {
+					min-height: 400px;
+				}
+
+				.intro-section,
+				.features-luxury,
+				.experience,
+				.contact-elegant {
+					padding: 5rem 2rem;
+				}
+			}
+
+			@media (max-width: 640px) {
+				.hero-cta {
+					padding: 1rem 2rem;
+					font-size: 0.75rem;
+				}
+
+				.features-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
+		<div class="hotel-page">
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="hero-content">
+					<div class="hero-subtitle">Est. Since Excellence</div>
+					<h1>Fassia Hotels</h1>
+					<p class="hero-description">
+						Where Guinean hospitality meets modern luxury. Two exceptional properties 
+						offering unforgettable experiences.
+					</p>
+					<a href="#properties" class="hero-cta">Discover Our Hotels</a>
+				</div>
+				<div class="scroll-indicator">Scroll</div>
+			</section>
+
+			<!-- Intro Section -->
+			<section class="intro-section">
+				<h2>A Legacy of Hospitality</h2>
+				<div class="divider"></div>
+				<p class="intro-text">
+					For years, Fassia Hotels has been synonymous with exceptional service and 
+					refined comfort. Our two distinctive properties across Guinea offer guests 
+					an authentic blend of local culture and international standards.
+				</p>
+			</section>
+
+			<!-- Properties Section -->
+			<section class="properties" id="properties">
+				<!-- Property 1: Guest House -->
+				<div class="property">
+					<div class="property-image">
+						<!-- Add your image here: <img src="/images/guest-house.jpg" alt="Fassia Guest House" style="width:100%; height:100%; object-fit:cover;" /> -->
+					</div>
+					<div class="property-content">
+						<div class="property-label">Premier Location</div>
+						<h3>Complexe Hôtelier<br>Fassia Guest House</h3>
+						<p class="property-description">
+							Our flagship property offers an unparalleled experience where modern elegance 
+							meets traditional Guinean warmth. Every detail has been carefully curated 
+							to ensure your absolute comfort.
+						</p>
+						<ul class="property-features">
+							<li>Luxury Suites & Rooms</li>
+							<li>Signature Restaurant</li>
+							<li>Conference & Event Spaces</li>
+							<li>Wellness & Recreation</li>
+							<li>Concierge Services</li>
+						</ul>
+						<a href="https://www.facebook.com/p/Complexe-Hôtelier-Fassia-Guest-House-100083154259327/" 
+						   target="_blank" 
+						   class="property-link">
+							Explore Guest House
+						</a>
+					</div>
+				</div>
+
+				<!-- Property 2: Residence Nongo -->
+				<div class="property">
+					<div class="property-image">
+						<!-- Add your image here: <img src="/images/residence-nongo.jpg" alt="Fassia Residence Nongo" style="width:100%; height:100%; object-fit:cover;" /> -->
+					</div>
+					<div class="property-content">
+						<div class="property-label">Urban Retreat</div>
+						<h3>Fassia Residence<br>Nongo</h3>
+						<p class="property-description">
+							Nestled in the vibrant Nongo district, our residence combines contemporary 
+							design with personalized service. The perfect haven for discerning travelers 
+							seeking both comfort and convenience.
+						</p>
+						<ul class="property-features">
+							<li>Contemporary Accommodations</li>
+							<li>Dining & Lounge</li>
+							<li>Business Facilities</li>
+							<li>Complimentary WiFi</li>
+							<li>Secure Parking</li>
+						</ul>
+						<a href="https://www.facebook.com/p/Fassia-Residence-Nongo-100063245107199/" 
+						   target="_blank" 
+						   class="property-link">
+							Explore Residence Nongo
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Features Section -->
+			<section class="features-luxury">
+				<div class="features-header">
+					<h2>The Fassia Experience</h2>
+					<div class="divider"></div>
+				</div>
+				<div class="features-grid">
+					<div class="feature-card">
+						<span class="feature-icon">🛎️</span>
+						<h4>Personalized Service</h4>
+						<p>Our dedicated team ensures every moment of your stay exceeds expectations</p>
+					</div>
+					<div class="feature-card">
+						<span class="feature-icon">🍽️</span>
+						<h4>Culinary Excellence</h4>
+						<p>Savor authentic Guinean flavors alongside international cuisine</p>
+					</div>
+					<div class="feature-card">
+						<span class="feature-icon">🏊</span>
+						<h4>Premium Amenities</h4>
+						<p>From wellness facilities to business centers, everything you need</p>
+					</div>
+					<div class="feature-card">
+						<span class="feature-icon">🌟</span>
+						<h4>Elegant Design</h4>
+						<p>Thoughtfully designed spaces that blend comfort with sophistication</p>
+					</div>
+					<div class="feature-card">
+						<span class="feature-icon">📍</span>
+						<h4>Prime Locations</h4>
+						<p>Strategic positioning for both leisure and business travelers</p>
+					</div>
+					<div class="feature-card">
+						<span class="feature-icon">🤝</span>
+						<h4>Local Expertise</h4>
+						<p>Discover Guinea through our curated experiences and insights</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Experience CTA -->
+			<section class="experience">
+				<h2>Begin Your Journey</h2>
+				<p>
+					Whether for business or leisure, Fassia Hotels offers the perfect 
+					setting for your next stay in Guinea.
+				</p>
+				<a href="/blog" class="experience-cta">View Accommodations</a>
+			</section>
+
+			<!-- Contact Section -->
+			<section class="contact-elegant">
+				<div class="contact-container">
+					<div class="contact-item">
+						<h4>Reservations</h4>
+						<p>
+							<a href="tel:+224XXXXXXXXX">+224 XXX XXX XXX</a><br>
+							<a href="mailto:reservations@fassiahotels.com">reservations@fassiahotels.com</a>
+						</p>
+					</div>
+					<div class="contact-item">
+						<h4>Connect With Us</h4>
+						<p>
+							Follow our journey on social media<br>
+							<a href="https://www.facebook.com/p/Complexe-Hôtelier-Fassia-Guest-House-100083154259327/" target="_blank">Facebook</a>
+						</p>
+					</div>
+					<div class="contact-item">
+						<h4>Location</h4>
+						<p>
+							Conakry, Guinea<br>
+							West Africa
+						</p>
+					</div>
+				</div>
+			</section>
+		</div>
 		<Footer />
 	</body>
 </html>

@@ -1,0 +1,459 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { HOTELS } from '../consts';
+
+const hotel = HOTELS.residenceNongo;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={`${hotel.name} - Fassia Hotels`}
+			description={hotel.description}
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Montserrat', sans-serif;
+				color: #2a2a2a;
+				background: #f8f6f3;
+			}
+
+			.hotel-page {
+				width: 100%;
+			}
+
+			/* Hero Section */
+			.hotel-hero {
+				height: 70vh;
+				min-height: 500px;
+				background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				color: #f8f6f3;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.hotel-hero::before {
+				content: '🏢';
+				position: absolute;
+				font-size: 20rem;
+				opacity: 0.1;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.hero-content {
+				position: relative;
+				z-index: 2;
+				max-width: 800px;
+				padding: 2rem;
+			}
+
+			.hero-label {
+				font-size: 0.9rem;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: #C5A572;
+				margin-bottom: 1rem;
+			}
+
+			.hotel-hero h1 {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: clamp(2.5rem, 6vw, 4rem);
+				font-weight: 300;
+				margin-bottom: 1.5rem;
+				line-height: 1.2;
+			}
+
+			.hero-description {
+				font-size: 1.2rem;
+				line-height: 1.8;
+				color: rgba(248, 246, 243, 0.9);
+				margin-bottom: 2rem;
+			}
+
+			.cta-buttons {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.btn {
+				padding: 1rem 2.5rem;
+				text-decoration: none;
+				font-size: 0.85rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				border-radius: 2px;
+				transition: all 0.3s ease;
+				font-weight: 500;
+			}
+
+			.btn-primary {
+				background: #C5A572;
+				color: #1a1a1a;
+			}
+
+			.btn-primary:hover {
+				background: #d4b88a;
+				transform: translateY(-2px);
+			}
+
+			.btn-secondary {
+				background: transparent;
+				color: #C5A572;
+				border: 1px solid #C5A572;
+			}
+
+			.btn-secondary:hover {
+				background: #C5A572;
+				color: #1a1a1a;
+			}
+
+			/* Content Section */
+			.hotel-content {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 6rem 2rem;
+			}
+
+			.section {
+				margin-bottom: 5rem;
+			}
+
+			.section h2 {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: clamp(2rem, 4vw, 3rem);
+				color: #1a4d2e;
+				margin-bottom: 2rem;
+				font-weight: 400;
+			}
+
+			.section p {
+				font-size: 1.05rem;
+				line-height: 1.9;
+				color: #7a7a7a;
+				margin-bottom: 1.5rem;
+			}
+
+			/* Features Grid */
+			.features-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 2.5rem;
+				margin-top: 3rem;
+			}
+
+			.feature-item {
+				background: white;
+				padding: 2.5rem;
+				border-radius: 5px;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+				transition: transform 0.3s ease;
+			}
+
+			.feature-item:hover {
+				transform: translateY(-5px);
+			}
+
+			.feature-icon {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+				display: block;
+			}
+
+			.feature-item h3 {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.5rem;
+				color: #1a4d2e;
+				margin-bottom: 1rem;
+			}
+
+			.feature-item p {
+				font-size: 0.95rem;
+				color: #7a7a7a;
+				margin: 0;
+			}
+
+			/* Gallery Section */
+			.gallery {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 1.5rem;
+				margin-top: 2rem;
+			}
+
+			.gallery-item {
+				height: 300px;
+				background: linear-gradient(135deg, #C5A572 0%, #a88a5c 100%);
+				border-radius: 5px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 4rem;
+				opacity: 0.3;
+			}
+
+			/* Amenities List */
+			.amenities-list {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1.5rem;
+				list-style: none;
+			}
+
+			.amenities-list li {
+				padding: 1rem;
+				background: white;
+				border-left: 3px solid #C5A572;
+				font-size: 1rem;
+				color: #2a2a2a;
+			}
+
+			/* Location Section */
+			.location-info {
+				background: white;
+				padding: 3rem;
+				border-radius: 5px;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+			}
+
+			.contact-details {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 2rem;
+				margin-top: 2rem;
+			}
+
+			.contact-item {
+				text-align: center;
+			}
+
+			.contact-icon {
+				font-size: 2rem;
+				color: #C5A572;
+				margin-bottom: 0.5rem;
+			}
+
+			.contact-item h4 {
+				font-size: 1.1rem;
+				color: #1a4d2e;
+				margin-bottom: 0.5rem;
+			}
+
+			.contact-item a {
+				color: #7a7a7a;
+				text-decoration: none;
+				transition: color 0.3s ease;
+			}
+
+			.contact-item a:hover {
+				color: #C5A572;
+			}
+
+			/* CTA Section */
+			.cta-section {
+				background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+				padding: 5rem 2rem;
+				text-align: center;
+				color: #f8f6f3;
+				margin-top: 4rem;
+			}
+
+			.cta-section h2 {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: clamp(2rem, 4vw, 3rem);
+				margin-bottom: 1.5rem;
+				color: #f8f6f3;
+			}
+
+			.cta-section p {
+				font-size: 1.1rem;
+				color: rgba(248, 246, 243, 0.8);
+				margin-bottom: 2.5rem;
+			}
+
+			@media (max-width: 768px) {
+				.hotel-content {
+					padding: 4rem 1.5rem;
+				}
+
+				.features-grid,
+				.gallery {
+					grid-template-columns: 1fr;
+				}
+
+				.location-info {
+					padding: 2rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<div class="hotel-page">
+			<!-- Hero Section -->
+			<section class="hotel-hero">
+				<div class="hero-content">
+					<div class="hero-label">Urban Retreat</div>
+					<h1>{hotel.name}</h1>
+					<p class="hero-description">{hotel.description}</p>
+					<div class="cta-buttons">
+						<a href="/contact" class="btn btn-primary">Book Your Stay</a>
+						<a href={hotel.facebook} target="_blank" class="btn btn-secondary">Visit Facebook</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Main Content -->
+			<div class="hotel-content">
+				<!-- About Section -->
+				<section class="section">
+					<h2>Welcome to Nongo</h2>
+					<p>
+						Fassia Residence Nongo brings contemporary comfort to the vibrant Nongo 
+						district. Our residence combines modern design with personalized service, 
+						creating the perfect home away from home for both business and leisure travelers.
+					</p>
+					<p>
+						Strategically located in one of Guinea's most dynamic neighborhoods, we 
+						offer easy access to local attractions, business centers, and dining 
+						options while providing a peaceful retreat at the end of your day.
+					</p>
+				</section>
+
+				<!-- Features Section -->
+				<section class="section">
+					<h2>Our Amenities</h2>
+					<div class="features-grid">
+						<div class="feature-item">
+							<span class="feature-icon">🛏️</span>
+							<h3>Modern Rooms</h3>
+							<p>Contemporary accommodations with all the comforts of home</p>
+						</div>
+						<div class="feature-item">
+							<span class="feature-icon">🍽️</span>
+							<h3>Restaurant & Bar</h3>
+							<p>Delicious meals and refreshments available throughout the day</p>
+						</div>
+						<div class="feature-item">
+							<span class="feature-icon">💼</span>
+							<h3>Business Center</h3>
+							<p>Fully equipped workspace for your professional needs</p>
+						</div>
+						<div class="feature-item">
+							<span class="feature-icon">📶</span>
+							<h3>High-Speed WiFi</h3>
+							<p>Complimentary fast internet throughout the property</p>
+						</div>
+						<div class="feature-item">
+							<span class="feature-icon">🚗</span>
+							<h3>Secure Parking</h3>
+							<p>Free and safe parking for all guests</p>
+						</div>
+						<div class="feature-item">
+							<span class="feature-icon">🛎️</span>
+							<h3>24/7 Reception</h3>
+							<p>Round-the-clock assistance and support</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- Gallery Section -->
+				<section class="section">
+					<h2>Explore Our Property</h2>
+					<div class="gallery">
+						<div class="gallery-item">🏢</div>
+						<div class="gallery-item">🛏️</div>
+						<div class="gallery-item">🍽️</div>
+						<div class="gallery-item">💼</div>
+					</div>
+					<p style="text-align: center; margin-top: 2rem; color: #7a7a7a; font-style: italic;">
+						Photos coming soon. Visit our Facebook page to see more.
+					</p>
+				</section>
+
+				<!-- Additional Amenities -->
+				<section class="section">
+					<h2>Complete Amenities List</h2>
+					<ul class="amenities-list">
+						<li>24-hour front desk</li>
+						<li>Air-conditioned rooms</li>
+						<li>Flat-screen TVs</li>
+						<li>Free WiFi access</li>
+						<li>Restaurant & bar on-site</li>
+						<li>Business facilities</li>
+						<li>Meeting rooms</li>
+						<li>Housekeeping services</li>
+						<li>Laundry services</li>
+						<li>Secure parking</li>
+						<li>Airport transfers available</li>
+						<li>Tour assistance</li>
+					</ul>
+				</section>
+
+				<!-- Location Section -->
+				<section class="section">
+					<h2>Location & Contact</h2>
+					<div class="location-info">
+						<p>
+							Located in the heart of Nongo, our residence offers convenient access 
+							to local businesses, restaurants, and entertainment. The perfect base 
+							for exploring Guinea's capital.
+						</p>
+						<div class="contact-details">
+							<div class="contact-item">
+								<div class="contact-icon">📞</div>
+								<h4>Phone</h4>
+								<a href={`tel:${hotel.phone}`}>{hotel.phone}</a>
+							</div>
+							<div class="contact-item">
+								<div class="contact-icon">✉️</div>
+								<h4>Email</h4>
+								<a href={`mailto:${hotel.email}`}>{hotel.email}</a>
+							</div>
+							<div class="contact-item">
+								<div class="contact-icon">📍</div>
+								<h4>Address</h4>
+								<p>Nongo, Conakry, Guinea</p>
+							</div>
+							<div class="contact-item">
+								<div class="contact-icon">👍</div>
+								<h4>Social Media</h4>
+								<a href={hotel.facebook} target="_blank">Facebook Page</a>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- CTA Section -->
+			<section class="cta-section">
+				<h2>Ready for a Comfortable Stay?</h2>
+				<p>Book your room at Fassia Residence Nongo today</p>
+				<div class="cta-buttons">
+					<a href="/contact" class="btn btn-primary">Make a Reservation</a>
+					<a href="/blog" class="btn btn-secondary">View Our Rooms</a>
+				</div>
+			</section>
+		</div>
+		<Footer />
+	</body>
+</html>

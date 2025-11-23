@@ -1,0 +1,1063 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { HOTELS } from '../consts';
+
+const hotel = HOTELS.guestHouse;
+
+// Adjust these to match your real data structure
+const heroImage = hotel.heroImage || '/images/fassia/hero.jpg';
+const panoImages = hotel.panoImages || [
+  '/images/fassia/pool.jpg',
+  '/images/fassia/lobby.jpg',
+  '/images/fassia/room.jpg',
+  '/images/fassia/restaurant.jpg',
+];
+const galleryImages = hotel.galleryImages || [
+  '/images/fassia/room-1.jpg',
+  '/images/fassia/room-2.jpg',
+  '/images/fassia/pool-1.jpg',
+  '/images/fassia/event-1.jpg',
+  '/images/fassia/garden-1.jpg',
+  '/images/fassia/conference-1.jpg',
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead 
+      title={`${hotel.name} - Fassia Hotels`}
+      description={hotel.description}
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg: #050608;
+        --bg-soft: #0b1110;
+        --text-main: #f8f6f3;
+        --text-muted: #b9b3a8;
+        --accent: #c8a772;
+        --accent-soft: rgba(200, 167, 114, 0.15);
+        --accent-strong: #e0bc7f;
+        --border-soft: rgba(255, 255, 255, 0.08);
+        --radius-lg: 18px;
+        --radius-md: 12px;
+        --blur-bg: blur(16px);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      body {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--text-main);
+        background: radial-gradient(circle at top, #14251b 0%, var(--bg) 45%, #040506 100%);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .hotel-page {
+        width: 100%;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 45%);
+      }
+
+      /* HERO */
+
+      .hotel-hero {
+        position: relative;
+        height: 90vh;
+        min-height: 540px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 4rem 2rem 2rem;
+        color: var(--text-main);
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to top, rgba(5,6,8,0.95) 0%, rgba(5,6,8,0.35) 40%, rgba(5,6,8,0.1) 100%),
+          url("{heroImage}");
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.04);
+        filter: saturate(1.15);
+        transition: transform 8s ease-out;
+      }
+
+      .hotel-hero:hover .hero-bg {
+        transform: scale(1.08);
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.2) 0%, transparent 40%);
+        mix-blend-mode: soft-light;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: 2.5rem;
+        align-items: flex-end;
+      }
+
+      @media (max-width: 900px) {
+        .hotel-hero {
+          align-items: center;
+          padding-top: 6rem;
+        }
+
+        .hero-inner {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+
+      .hero-main {
+        backdrop-filter: var(--blur-bg);
+        background: linear-gradient(
+          135deg,
+          rgba(5, 6, 8, 0.6),
+          rgba(5, 6, 8, 0.3)
+        );
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 2.4rem 2.4rem 2rem;
+        box-shadow: 0 26px 60px rgba(0,0,0,0.75);
+      }
+
+      .hero-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+        margin-bottom: 0.9rem;
+      }
+
+      .hero-subline {
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.9rem;
+      }
+
+      .hero-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2.6rem, 5.1vw, 3.8rem);
+        line-height: 1.05;
+        font-weight: 400;
+        margin-bottom: 1rem;
+      }
+
+      .hero-title span {
+        color: var(--accent-strong);
+      }
+
+      .hero-description {
+        font-size: 1rem;
+        line-height: 1.9;
+        color: var(--text-muted);
+        max-width: 36rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .hero-pill {
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 0.55rem 1.4rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(8px);
+        background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.08));
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .hero-pill::before {
+        content: "";
+        width: 0.48rem;
+        height: 0.48rem;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+      }
+
+      .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+      }
+
+      .btn {
+        padding: 0.9rem 2.4rem;
+        text-decoration: none;
+        font-size: 0.8rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        border-radius: 999px;
+        transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+        color: #1a1a1a;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.85);
+        background: linear-gradient(135deg, var(--accent-strong), #f1d18c);
+      }
+
+      .btn-secondary {
+        background: rgba(5,6,8,0.4);
+        border-color: rgba(255,255,255,0.18);
+        color: var(--text-main);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(5,6,8,0.75);
+        transform: translateY(-1px);
+      }
+
+      .btn-icon {
+        font-size: 1.05rem;
+      }
+
+      .hero-side {
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+      }
+
+      .hero-mini-card {
+        border-radius: var(--radius-lg);
+        padding: 1.4rem 1.6rem;
+        backdrop-filter: blur(16px);
+        background: linear-gradient(135deg, rgba(5,6,8,0.88), rgba(5,6,8,0.65));
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 22px 50px rgba(0,0,0,0.7);
+      }
+
+      .hero-mini-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .hero-mini-text {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.8rem;
+      }
+
+      .hero-mini-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .hero-mini-tag {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-muted);
+      }
+
+      .hero-scroll-hint {
+        position: absolute;
+        left: 50%;
+        bottom: 1.4rem;
+        transform: translateX(-50%);
+        font-size: 0.75rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        z-index: 2;
+      }
+
+      .hero-scroll-line {
+        width: 1px;
+        height: 32px;
+        background: linear-gradient(to bottom, var(--accent), transparent);
+        opacity: 0.7;
+      }
+
+      /* PANORAMIC STRIP */
+
+      .pano-strip {
+        margin: 0 auto;
+        padding: 1.8rem 2rem 0.8rem;
+        max-width: 1200px;
+      }
+
+      .pano-inner {
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-soft);
+        background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(7,10,9,0.96));
+        padding: 1.4rem 1.6rem 1.6rem;
+        box-shadow: 0 24px 80px rgba(0,0,0,0.85);
+      }
+
+      .pano-label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .pano-label {
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .pano-action {
+        font-size: 0.75rem;
+        color: var(--accent-strong);
+        opacity: 0.85;
+      }
+
+      .pano-scroll {
+        display: flex;
+        gap: 0.9rem;
+        overflow-x: auto;
+        padding-bottom: 0.2rem;
+        scroll-snap-type: x mandatory;
+      }
+
+      .pano-card {
+        flex: 0 0 min(260px, 70%);
+        height: 150px;
+        border-radius: var(--radius-md);
+        position: relative;
+        overflow: hidden;
+        scroll-snap-align: start;
+        cursor: grab;
+        background: #111;
+      }
+
+      .pano-image {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.6s ease, filter 0.6s ease;
+      }
+
+      .pano-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(5,6,8,0.85), rgba(5,6,8,0.05));
+      }
+
+      .pano-card:hover .pano-image {
+        transform: scale(1.08);
+        filter: saturate(1.25);
+      }
+
+      .pano-caption {
+        position: absolute;
+        left: 1rem;
+        bottom: 0.9rem;
+        z-index: 2;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #f8f6f3;
+      }
+
+      .pano-caption span {
+        display: block;
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+
+      /* MAIN CONTENT */
+
+      .hotel-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+
+      @media (max-width: 768px) {
+        .hotel-content {
+          padding: 3.2rem 1.4rem 5.5rem;
+        }
+      }
+
+      .section {
+        margin-bottom: 4.2rem;
+      }
+
+      .section-header {
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .section-eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .section h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        font-weight: 400;
+      }
+
+      .section-lead {
+        font-size: 0.98rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+        max-width: 36rem;
+      }
+
+      /* EXPERIENCE CARDS (rooms / pool / events) */
+
+      .experience-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.8rem;
+      }
+
+      .experience-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        background: #111;
+        cursor: pointer;
+        isolation: isolate;
+        border: 1px solid var(--border-soft);
+      }
+
+      .experience-image {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.6s ease, filter 0.6s ease;
+      }
+
+      .experience-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(5,6,8,0.92), rgba(5,6,8,0.35), rgba(5,6,8,0.1));
+        z-index: 1;
+      }
+
+      .experience-inner {
+        position: relative;
+        z-index: 2;
+        padding: 1.6rem 1.6rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 230px;
+      }
+
+      .experience-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+        margin-bottom: 0.4rem;
+      }
+
+      .experience-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .experience-text {
+        font-size: 0.86rem;
+        color: var(--text-muted);
+        max-width: 18rem;
+      }
+
+      .experience-card:hover .experience-image {
+        transform: scale(1.08);
+        filter: saturate(1.23);
+      }
+
+      /* GALLERY */
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 0.7rem;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 14px;
+        padding-top: 72%;
+        background: #111;
+      }
+
+      .gallery-item:nth-child(1) {
+        grid-column: span 6;
+      }
+      .gallery-item:nth-child(2) {
+        grid-column: span 3;
+      }
+      .gallery-item:nth-child(3) {
+        grid-column: span 3;
+      }
+      .gallery-item:nth-child(4) {
+        grid-column: span 4;
+      }
+      .gallery-item:nth-child(5) {
+        grid-column: span 4;
+      }
+      .gallery-item:nth-child(6) {
+        grid-column: span 4;
+      }
+
+      @media (max-width: 900px) {
+        .gallery-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+        .gallery-item {
+          grid-column: span 3 !important;
+        }
+      }
+
+      .gallery-img {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.6s ease, filter 0.6s ease;
+      }
+
+      .gallery-item:hover .gallery-img {
+        transform: scale(1.06);
+        filter: saturate(1.2);
+      }
+
+      /* LOCATION / CONTACT */
+
+      .location-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: 2rem;
+        align-items: stretch;
+      }
+
+      @media (max-width: 900px) {
+        .location-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .location-card {
+        border-radius: var(--radius-lg);
+        padding: 1.8rem 1.8rem 1.6rem;
+        background: radial-gradient(circle at top left, rgba(255,255,255,0.06), rgba(5,6,8,0.95));
+        border: 1px solid var(--border-soft);
+      }
+
+      .location-card p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+      }
+
+      .contact-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.4rem;
+        margin-top: 1.8rem;
+      }
+
+      .contact-item {
+        padding: 0.9rem 1rem;
+        border-radius: var(--radius-md);
+        background: rgba(5,6,8,0.7);
+        border: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .contact-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.1rem;
+      }
+
+      .contact-main {
+        font-size: 0.95rem;
+      }
+
+      .contact-main a {
+        text-decoration: none;
+      }
+
+      .contact-main a:hover {
+        text-decoration: underline;
+      }
+
+      .map-placeholder {
+        border-radius: var(--radius-lg);
+        background: radial-gradient(circle at center, #172724, #050808);
+        border: 1px solid var(--border-soft);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-inner {
+        padding: 1.6rem 1.6rem 1.4rem;
+      }
+
+      .map-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.4rem;
+      }
+
+      .map-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .map-sub {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .map-visual {
+        height: 180px;
+        margin-top: 1rem;
+        border-radius: 14px;
+        background-image: linear-gradient(to bottom right, #243c33, #090d0c);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-circle {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.06);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .map-pin {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent-strong);
+        left: 56%;
+        top: 46%;
+        box-shadow: 0 0 18px rgba(224,188,127,0.9);
+      }
+
+      /* BOTTOM CTA BAR */
+
+      .floating-booking-bar {
+        position: fixed;
+        left: 50%;
+        bottom: 1.2rem;
+        transform: translateX(-50%);
+        z-index: 20;
+        padding: 0.5rem;
+        max-width: 620px;
+        width: calc(100% - 2.4rem);
+      }
+
+      .floating-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.9rem 1.3rem;
+        border-radius: 999px;
+        background: rgba(5,6,8,0.94);
+        border: 1px solid rgba(255,255,255,0.14);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 60px rgba(0,0,0,0.9);
+      }
+
+      .floating-text {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .floating-text span {
+        color: var(--accent-strong);
+        font-weight: 500;
+      }
+
+      .floating-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .btn-mini {
+        padding: 0.6rem 1.1rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+      }
+
+      @media (max-width: 640px) {
+        .floating-inner {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .floating-actions {
+          width: 100%;
+        }
+
+        .btn-mini {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .pano-strip {
+          padding-inline: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+
+    <div class="hotel-page">
+      <!-- HERO -->
+      <section class="hotel-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-inner">
+          <div class="hero-main">
+            <div class="hero-label">Fassia Collection</div>
+            <div class="hero-subline">Conakry, Guinea</div>
+            <h1 class="hero-title">
+              {hotel.name} <span>Guest House</span>
+            </h1>
+            <p class="hero-description">
+              {hotel.description}
+            </p>
+
+            <div class="hero-meta">
+              <div class="hero-pill">Pool & Garden Retreat</div>
+              <div class="hero-pill">Conference & Events</div>
+              <div class="hero-pill">City & Sea Access</div>
+            </div>
+
+            <div class="cta-buttons">
+              <a href={`tel:${hotel.phone}`} class="btn btn-primary">
+                <span class="btn-icon">📞</span>
+                Call to Book
+              </a>
+              <a href={hotel.facebook} target="_blank" class="btn btn-secondary">
+                <span class="btn-icon">📷</span>
+                View More Photos
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="hero-mini-card">
+              <h3 class="hero-mini-title">Stay between pool and city lights</h3>
+              <p class="hero-mini-text">
+                Wake up to soft light over the garden, host your meetings in modern conference rooms,
+                and end the day by the water with a drink in hand.
+              </p>
+              <div class="hero-mini-tags">
+                <span class="hero-mini-tag">Business trips</span>
+                <span class="hero-mini-tag">Weekends away</span>
+                <span class="hero-mini-tag">Private events</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="hero-scroll-hint">
+          <span>Scroll to explore</span>
+          <div class="hero-scroll-line"></div>
+        </div>
+      </section>
+
+      <!-- PANORAMIC STRIP -->
+      <section class="pano-strip" aria-label="Highlights gallery">
+        <div class="pano-inner">
+          <div class="pano-label-row">
+            <div class="pano-label">Rooms · Pool · Garden · Events</div>
+            <div class="pano-action">Swipe to preview</div>
+          </div>
+          <div class="pano-scroll">
+            {panoImages.map((img, index) => (
+              <div class="pano-card">
+                <div class="pano-image" style={`background-image:url('${img}')`}></div>
+                <div class="pano-caption">
+                  {index === 0 && <>Pool & Garden<span>Afternoons in the sun</span></>}
+                  {index === 1 && <>Lobby & Lounge<span>Arrivals & quiet moments</span></>}
+                  {index === 2 && <>Rooms & Suites<span>Neutral tones, soft light</span></>}
+                  {index === 3 && <>Restaurant & Bar<span>Dinners, cocktails, receptions</span></>}
+                  {index > 3 && <>Fassia Detail<span>Fassia Guest House</span></>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- MAIN CONTENT -->
+      <main class="hotel-content">
+        <!-- About -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-eyebrow">Welcome to Fassia Guest House</div>
+            <h2>Modern comfort with Guinean warmth</h2>
+            <p class="section-lead">
+              Complexe Hôtelier Fassia Guest House blends soft, contemporary interiors with the kind of
+              attentive service that feels like home. Everything is designed for easy mornings, productive
+              days, and slow evenings by the pool.
+            </p>
+          </div>
+        </section>
+
+        <!-- Experiences: Rooms, Pool, Events -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-eyebrow">Stay, unwind, gather</div>
+            <h2>Rooms, pool and event spaces</h2>
+          </div>
+
+          <div class="experience-grid">
+            <article class="experience-card">
+              <div
+                class="experience-image"
+                style="background-image:url('/images/fassia/rooms-hero.jpg');"
+              ></div>
+              <div class="experience-overlay"></div>
+              <div class="experience-inner">
+                <div class="experience-tag">Rooms & Suites</div>
+                <h3 class="experience-title">Soft neutrals, quiet mornings</h3>
+                <p class="experience-text">
+                  Spacious rooms with comfortable bedding, air conditioning and thoughtful details
+                  for business and leisure stays.
+                </p>
+              </div>
+            </article>
+
+            <article class="experience-card">
+              <div
+                class="experience-image"
+                style="background-image:url('/images/fassia/pool-evening.jpg');"
+              ></div>
+              <div class="experience-overlay"></div>
+              <div class="experience-inner">
+                <div class="experience-tag">Pool & Outdoor</div>
+                <h3 class="experience-title">Afternoons by the water</h3>
+                <p class="experience-text">
+                  A calm outdoor pool and terrace area for a quick swim, a relaxed break or
+                  small private gatherings.
+                </p>
+              </div>
+            </article>
+
+            <article class="experience-card">
+              <div
+                class="experience-image"
+                style="background-image:url('/images/fassia/conference-dinner.jpg');"
+              ></div>
+              <div class="experience-overlay"></div>
+              <div class="experience-inner">
+                <div class="experience-tag">Meetings & Events</div>
+                <h3 class="experience-title">Conferences, trainings, celebrations</h3>
+                <p class="experience-text">
+                  Flexible conference rooms and event spaces with modern equipment, catering and
+                  on-site support.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-eyebrow">Gallery</div>
+            <h2>A closer look at Fassia Guest House</h2>
+            <p class="section-lead">
+              A selection of rooms, pool views, conference setups and outdoor spaces. Ask our team
+              to show you more photos when you call.
+            </p>
+          </div>
+
+          <div class="gallery-grid">
+            {galleryImages.map((img) => (
+              <div class="gallery-item">
+                <div class="gallery-img" style={`background-image:url('${img}')`}></div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Location & Contact -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-eyebrow">Location & contact</div>
+            <h2>In the heart of Conakry</h2>
+            <p class="section-lead">
+              From Fassia Guest House you are close to business districts, embassies and key roads,
+              while still feeling slightly away from the noise once you step inside.
+            </p>
+          </div>
+
+          <div class="location-grid">
+            <div class="location-card">
+              <p>
+                Our team is available every day to help you choose the right room, plan your meetings
+                or organise a private event by the pool.
+              </p>
+
+              <div class="contact-details">
+                <div class="contact-item">
+                  <div class="contact-label">Phone</div>
+                  <div class="contact-main">
+                    <a href={`tel:${hotel.phone}`}>{hotel.phone}</a>
+                  </div>
+                </div>
+
+                {hotel.email && (
+                  <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-main">
+                      <a href={`mailto:${hotel.email}`}>{hotel.email}</a>
+                    </div>
+                  </div>
+                )}
+
+                <div class="contact-item">
+                  <div class="contact-label">Address</div>
+                  <div class="contact-main">
+                    Conakry, Guinea<br />
+                    Fassia Guest House
+                  </div>
+                </div>
+
+                {hotel.facebook && (
+                  <div class="contact-item">
+                    <div class="contact-label">Social</div>
+                    <div class="contact-main">
+                      <a href={hotel.facebook} target="_blank">Facebook · Fassia Guest House</a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div class="map-placeholder">
+              <div class="map-inner">
+                <div class="map-tag">Map</div>
+                <div class="map-title">Easy access for guests and teams</div>
+                <div class="map-sub">
+                  Add your Google Maps embed here or keep this minimalist map-style visual.
+                </div>
+                <div class="map-visual">
+                  <div class="map-circle"></div>
+                  <div class="map-pin"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Floating booking bar -->
+      <div class="floating-booking-bar">
+        <div class="floating-inner">
+          <div class="floating-text">
+            Call <span>{hotel.phone}</span> to book your stay or plan an event.
+          </div>
+          <div class="floating-actions">
+            <a href={`tel:${hotel.phone}`} class="btn btn-primary btn-mini">
+              📞 Call now
+            </a>
+            {hotel.facebook && (
+              <a href={hotel.facebook} target="_blank" class="btn btn-secondary btn-mini">
+                📷 View photos
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <Footer />
+  </body>
+</html>

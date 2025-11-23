@@ -10,8 +10,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const { title, description, image = '/hotel-preview.jpg' } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -31,6 +30,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="keywords" content="Fassia Hotels, Guinea hotels, luxury accommodation, Conakry hotels, Guest House, Residence Nongo, hotel Guinea" />
+<meta name="author" content="Fassia Hotels" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -38,6 +39,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:site_name" content="Fassia Hotels" />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -45,3 +48,36 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#C5A572" />
+<meta name="msapplication-TileColor" content="#1a4d2e" />
+
+<!-- Structured Data for Hotel -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "name": "Fassia Hotels",
+  "description": "Luxury hotel accommodations in Guinea",
+  "url": "https://fassiahotels.com",
+  "logo": "https://fassiahotels.com/logo.png",
+  "image": "https://fassiahotels.com/hotel-preview.jpg",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Conakry",
+    "addressCountry": "Guinea"
+  },
+  "telephone": "+224XXXXXXXXX",
+  "sameAs": [
+    "https://www.facebook.com/p/Complexe-Hôtelier-Fassia-Guest-House-100083154259327/",
+    "https://www.facebook.com/p/Fassia-Residence-Nongo-100063245107199/"
+  ]
+}
+</script>
