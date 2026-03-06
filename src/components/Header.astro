@@ -1,151 +1,269 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
 ---
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/guest-house">Guest House</HeaderLink>
-			<HeaderLink href="/residence-nongo">Residence Nongo</HeaderLink>
-			<HeaderLink href="/blog">Rooms</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
+<header id="site-header">
+	<div class="header-inner">
+		<a href="/" class="logo">
+			<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M2 22h20"/><path d="M9 22v-6h6v6"/><path d="M9 6V2h6v4"/></svg>
+			<div class="logo-text">
+				<span class="logo-name">Les Résidences Fassia</span>
+				<span class="logo-sub">GUINÉE</span>
+			</div>
+		</a>
+
+		<nav class="desktop-nav">
+			<a href="/">Accueil</a>
+			<a href="#nongo">Fassia Nongo</a>
+			<a href="#coyah">Fassia Coyah</a>
+			<a href="#contact">Contact</a>
+		</nav>
+
+		<div class="header-actions">
+			<div class="lang-wrapper" id="lang-wrapper">
+				<button class="lang-btn" id="lang-btn" aria-label="Traduire la page">
+					<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+					<span id="lang-label">FR</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+				</button>
+
+				<div class="lang-dropdown" id="lang-dropdown">
+					<a href="#" data-lang="fr" class="lang-option active">Français</a>
+					<a href="#" data-lang="en" class="lang-option">English</a>
+					<a href="#" data-lang="ar" class="lang-option">العربية</a>
+					<a href="#" data-lang="zh-CN" class="lang-option">普通话</a>
+					<a href="#" data-lang="zh-TW" class="lang-option">廣東話</a>
+					<a href="#" data-lang="tr" class="lang-option">Türkçe</a>
+					<a href="#" data-lang="hi" class="lang-option">हिन्दी</a>
+					<a href="#" data-lang="pt" class="lang-option">Português</a>
+					<a href="#" data-lang="es" class="lang-option">Español</a>
+				</div>
+			</div>
+
+			<button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
+				<span></span><span></span><span></span>
+			</button>
 		</div>
-		<div class="social-links">
-			<a href="https://www.facebook.com/p/Complexe-Hôtelier-Fassia-Guest-House-100083154259327/" target="_blank" title="Fassia Guest House on Facebook">
-				<span class="sr-only">Visit Fassia Guest House on Facebook</span>
-				<svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28">
-					<path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-				</svg>
-			</a>
-			<a href="https://www.facebook.com/p/Fassia-Residence-Nongo-100063245107199/" target="_blank" title="Fassia Residence Nongo on Facebook">
-				<span class="sr-only">Visit Fassia Residence Nongo on Facebook</span>
-				<svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28">
-					<path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-				</svg>
-			</a>
-		</div>
+	</div>
+
+	<nav class="mobile-nav" id="mobile-nav">
+		<a href="/">Accueil</a>
+		<a href="#nongo">Fassia Nongo</a>
+		<a href="#coyah">Fassia Coyah</a>
+		<a href="#contact">Contact</a>
 	</nav>
 </header>
+
 <style>
 	header {
-		margin: 0;
-		padding: 0 2rem;
-		background: rgba(255, 255, 255, 0.98);
-		backdrop-filter: blur(10px);
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-		position: sticky;
-		top: 0;
-		z-index: 1000;
-		border-bottom: 1px solid rgba(197, 165, 114, 0.15);
+		position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+		transition: background 0.3s ease, box-shadow 0.3s ease;
+		background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
 	}
-	
-	h2 {
-		margin: 0;
-		font-size: 1.4rem;
-		font-family: 'Cormorant Garamond', serif;
-		font-weight: 500;
-		letter-spacing: 1px;
+	header.scrolled {
+		background: #18181b;
+		box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 	}
-	
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-		color: #1a4d2e;
-		transition: color 0.3s ease;
+
+	.header-inner {
+		max-width: 1400px; margin: 0 auto; padding: 0 2rem;
+		height: 5rem; display: flex; align-items: center; justify-content: space-between;
 	}
-	
-	h2 a:hover {
-		color: #C5A572;
+
+	/* Logo */
+	.logo {
+		display: flex; align-items: center; gap: 0.75rem;
+		text-decoration: none; color: white; flex-shrink: 0;
 	}
-	
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: 0.5rem 0;
+	.logo-icon { color: #C5A572; flex-shrink: 0; }
+	.logo-name {
+		display: block;
+		font-family: 'Playfair Display', serif;
+		font-size: 1.45rem;
+		font-weight: 600;
+		line-height: 1.1;
+		white-space: nowrap;
 	}
-	
-	nav a {
-		padding: 1rem 1rem;
-		color: #2a2a2a;
-		border-bottom: 2px solid transparent;
-		text-decoration: none;
-		font-size: 0.9rem;
-		font-weight: 500;
+	.logo-sub {
+		display: block; font-size: 0.65rem;
+		letter-spacing: 3px; color: #C5A572; margin-top: 2px;
+	}
+
+	/* Desktop nav */
+	.desktop-nav { display: flex; align-items: center; gap: 2.5rem; }
+	.desktop-nav a {
+		color: white; text-decoration: none; font-size: 0.9rem;
+		font-weight: 400; letter-spacing: 0.5px;
+		transition: color 0.2s ease; font-family: 'Lato', sans-serif;
+		white-space: nowrap;
+	}
+	.desktop-nav a:hover { color: #C5A572; }
+
+	/* Header actions */
+	.header-actions { display: flex; align-items: center; gap: 1rem; }
+
+	/* Language wrapper */
+	.lang-wrapper { position: relative; }
+
+	.lang-btn {
+		display: flex; align-items: center; gap: 0.4rem;
+		background: transparent;
+		border: 1px solid rgba(255,255,255,0.2);
+		border-radius: 4px;
+		color: rgba(255,255,255,0.85);
+		padding: 0.4rem 0.7rem;
+		cursor: pointer;
+		font-family: 'Lato', sans-serif;
+		font-size: 0.8rem;
 		letter-spacing: 0.5px;
-		text-transform: uppercase;
-		transition: all 0.3s ease;
+		transition: all 0.2s ease;
 	}
-	
-	nav a:hover {
-		color: #C5A572;
-		border-bottom-color: #C5A572;
+	.lang-btn:hover { border-color: #C5A572; color: #C5A572; }
+	.lang-btn.open { border-color: #C5A572; color: #C5A572; }
+
+	.lang-dropdown {
+		display: none;
+		position: absolute;
+		top: calc(100% + 0.5rem);
+		right: 0;
+		background: #18181b;
+		border: 1px solid #3f3f46;
+		border-radius: 6px;
+		overflow: hidden;
+		min-width: 145px;
+		box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+		z-index: 100;
 	}
-	
-	nav a.active {
-		color: #C5A572;
-		border-bottom-color: #C5A572;
+	.lang-dropdown.open { display: block; }
+
+	.lang-option {
+		display: block;
+		padding: 0.6rem 1rem;
+		color: #a1a1aa;
+		text-decoration: none;
+		font-size: 0.85rem;
+		font-family: 'Lato', sans-serif;
+		transition: all 0.15s ease;
+		border-bottom: 1px solid #27272a;
 	}
-	
-	.internal-links {
-		display: flex;
-		gap: 0.5rem;
+	.lang-option:last-child { border-bottom: none; }
+	.lang-option:hover { background: #27272a; color: white; }
+	.lang-option.active { color: #C5A572; }
+
+	/* Mobile toggle */
+	.mobile-toggle {
+		display: none; flex-direction: column; gap: 5px;
+		background: none; border: none; cursor: pointer; padding: 4px;
 	}
-	
-	.social-links {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
+	.mobile-toggle span {
+		display: block; width: 26px; height: 2px; background: white;
+		transition: all 0.3s ease; border-radius: 2px;
 	}
-	
-	.social-links a {
-		padding: 0.5rem;
-		border: none;
-		color: #7a7a7a;
-		transition: color 0.3s ease, transform 0.3s ease;
+	.mobile-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+	.mobile-toggle.open span:nth-child(2) { opacity: 0; }
+	.mobile-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+	/* Mobile nav */
+	.mobile-nav {
+		display: none; flex-direction: column;
+		background: #18181b; border-top: 1px solid #27272a;
 	}
-	
-	.social-links a:hover {
-		color: #C5A572;
-		transform: translateY(-2px);
+	.mobile-nav.open { display: flex; }
+	.mobile-nav a {
+		color: white; text-decoration: none; padding: 1rem 2rem;
+		font-size: 1rem; transition: background 0.2s, color 0.2s;
+		font-family: 'Lato', sans-serif;
 	}
-	
-	.social-links svg {
-		width: 24px;
-		height: 24px;
+	.mobile-nav a:hover { background: #27272a; color: #C5A572; }
+
+	@media (max-width: 1024px) {
+		.desktop-nav { gap: 1.5rem; }
 	}
-	
+
 	@media (max-width: 768px) {
-		header {
-			padding: 0 1rem;
-		}
-		
-		.internal-links {
-			gap: 0;
-		}
-		
-		nav a {
-			padding: 1rem 0.5rem;
-			font-size: 0.8rem;
-		}
-		
-		h2 {
-			font-size: 1.1rem;
-		}
+		.desktop-nav { display: none; }
+		.mobile-toggle { display: flex; }
+		.logo-name { font-size: 1.15rem; }
 	}
-	
-	@media (max-width: 640px) {
-		.social-links {
-			display: none;
-		}
-		
-		nav a {
-			font-size: 0.75rem;
-			padding: 1rem 0.3rem;
-		}
+
+	@media (max-width: 400px) {
+		.logo-name { font-size: 1rem; }
+		.header-inner { padding: 0 1rem; }
 	}
 </style>
+
+<script>
+	// Scroll effect
+	const header = document.getElementById('site-header');
+	window.addEventListener('scroll', () => {
+		header.classList.toggle('scrolled', window.scrollY > 50);
+	});
+
+	// Mobile menu
+	const toggle = document.getElementById('mobile-toggle');
+	const mobileNav = document.getElementById('mobile-nav');
+
+	toggle.addEventListener('click', () => {
+		toggle.classList.toggle('open');
+		mobileNav.classList.toggle('open');
+	});
+
+	mobileNav.querySelectorAll('a').forEach(link => {
+		link.addEventListener('click', () => {
+			toggle.classList.remove('open');
+			mobileNav.classList.remove('open');
+		});
+	});
+
+	// Language dropdown
+	const langBtn = document.getElementById('lang-btn');
+	const langDropdown = document.getElementById('lang-dropdown');
+	const langLabel = document.getElementById('lang-label');
+
+	const langNames = {
+		'fr': 'FR', 'en': 'EN', 'ar': 'AR',
+		'zh-CN': '中文', 'zh-TW': '粵', 'tr': 'TR',
+		'hi': 'HI', 'pt': 'PT', 'es': 'ES'
+	};
+
+	// Restore saved language label
+	const savedLang = localStorage.getItem('siteLang') || 'fr';
+	langLabel.textContent = langNames[savedLang];
+	document.querySelectorAll('.lang-option').forEach(o => {
+		o.classList.toggle('active', o.dataset.lang === savedLang);
+	});
+
+	langBtn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		langBtn.classList.toggle('open');
+		langDropdown.classList.toggle('open');
+	});
+
+	document.addEventListener('click', () => {
+		langBtn.classList.remove('open');
+		langDropdown.classList.remove('open');
+	});
+
+	document.querySelectorAll('.lang-option').forEach(option => {
+		option.addEventListener('click', (e) => {
+			e.preventDefault();
+			const lang = option.dataset.lang;
+
+			// Update UI
+			document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+			option.classList.add('active');
+			langLabel.textContent = langNames[lang];
+			langBtn.classList.remove('open');
+			langDropdown.classList.remove('open');
+
+			// Save
+			localStorage.setItem('siteLang', lang);
+
+			// Translate
+			if (lang === 'fr') {
+				window.location.href = window.location.origin + window.location.pathname;
+			} else {
+				const translateUrl = `https://translate.google.com/translate?sl=fr&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
+				window.location.href = translateUrl;
+			}
+		});
+	});
+</script>

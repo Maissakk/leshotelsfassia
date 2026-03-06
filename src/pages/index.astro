@@ -7,652 +7,716 @@ import Footer from '../components/Footer.astro';
 <!doctype html>
 <html lang="fr">
 	<head>
-		<BaseHead title="Les Hôtels Fassia - Guinée" description="Deux hôtels d'exception en Guinée" />
+		<BaseHead title="Les Résidences Fassia - Guinée" description="Deux hôtels d'exception en Guinée" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-
-			:root {
-				--gold: #C5A572;
-				--dark: #1a1a1a;
-				--off-white: #fafafa;
-			}
-
-			html {
-				scroll-behavior: smooth;
-			}
-
-			body {
-				font-family: 'Lato', sans-serif;
-				color: #2a2a2a;
-				background: white;
-				overflow-x: hidden;
-			}
-
-			h1, h2, h3 {
-				font-family: 'Playfair Display', serif;
-				font-weight: 400;
-			}
-
-			/* SCROLL ANIMATIONS */
-			.fade-in {
-				opacity: 0;
-				transform: translateY(60px);
-				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-			}
-
-			.fade-in.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
-
-			.fade-in-left {
-				opacity: 0;
-				transform: translateX(-60px);
-				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-			}
-
-			.fade-in-left.visible {
-				opacity: 1;
-				transform: translateX(0);
-			}
-
-			.fade-in-right {
-				opacity: 0;
-				transform: translateX(60px);
-				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-			}
-
-			.fade-in-right.visible {
-				opacity: 1;
-				transform: translateX(0);
-			}
-
-			.scale-in {
-				opacity: 0;
-				transform: scale(0.9);
-				transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-			}
-
-			.scale-in.visible {
-				opacity: 1;
-				transform: scale(1);
-			}
-
-			/* Stagger animations for multiple items */
-			.stagger-item {
-				opacity: 0;
-				transform: translateY(30px);
-				transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-			}
-
-			.stagger-item.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
-
-			/* Hero Section */
-			.hero {
-				height: 100vh;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.hero-slideshow {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-			}
-
-			.hero-slide {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				opacity: 0;
-				transition: opacity 2s ease-in-out;
-				background-size: cover;
-				background-position: center;
-			}
-
-			.hero-slide.active {
-				opacity: 1;
-			}
-
-			.hero-slide:nth-child(1) { 
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			}
-			.hero-slide:nth-child(2) { 
-				background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-			}
-			.hero-slide:nth-child(3) { 
-				background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-			}
-			.hero-slide:nth-child(4) { 
-				background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-			}
-			.hero-slide:nth-child(5) { 
-				background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-			}
-
-			.hero-overlay {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
-				z-index: 1;
-			}
-
-			.hero-content {
-				position: relative;
-				z-index: 2;
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				text-align: center;
-				color: white;
-				padding: 2rem;
-			}
-
-			.hero h1 {
-				font-size: clamp(3.5rem, 12vw, 8rem);
-				margin-bottom: 1.5rem;
-				font-weight: 300;
-				letter-spacing: 3px;
-				text-shadow: 0 3px 30px rgba(0,0,0,0.5);
-				animation: heroTitleFadeIn 1.2s ease-out;
-			}
-
-			.hero-subtitle {
-				font-size: clamp(1rem, 2.5vw, 1.6rem);
-				font-weight: 300;
-				letter-spacing: 6px;
-				text-transform: uppercase;
-				margin-bottom: 4rem;
-				opacity: 0.95;
-				animation: heroSubtitleFadeIn 1.4s ease-out;
-			}
-
-			.hotels-nav {
-				display: flex;
-				gap: 2rem;
-				flex-wrap: wrap;
-				justify-content: center;
-				animation: heroButtonsFadeIn 1.6s ease-out;
-			}
-
-			.hotel-button {
-				padding: 1.8rem 3.5rem;
-				background: transparent;
-				color: white;
-				border: 2px solid white;
-				text-decoration: none;
-				font-size: 1rem;
-				letter-spacing: 3px;
-				text-transform: uppercase;
-				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-				font-weight: 500;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.hotel-button::before {
-				content: '';
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 0;
-				height: 0;
-				background: white;
-				transition: width 0.4s ease, height 0.4s ease;
-				transform: translate(-50%, -50%);
-				z-index: -1;
-				border-radius: 50%;
-			}
-
-			.hotel-button:hover::before {
-				width: 300%;
-				height: 300%;
-			}
-
-			.hotel-button:hover {
-				color: var(--dark);
-				transform: translateY(-3px);
-				box-shadow: 0 10px 40px rgba(255,255,255,0.3);
-			}
-
-			/* Slide indicators */
-			.slide-indicators {
-				position: absolute;
-				bottom: 3rem;
-				left: 50%;
-				transform: translateX(-50%);
-				display: flex;
-				gap: 1rem;
-				z-index: 3;
-			}
-
-			.indicator {
-				width: 12px;
-				height: 12px;
-				border-radius: 50%;
-				background: rgba(255,255,255,0.4);
-				border: 2px solid white;
-				cursor: pointer;
-				transition: all 0.3s ease;
-			}
-
-			.indicator.active {
-				background: white;
-				transform: scale(1.3);
-			}
-
-			/* Parallax Section */
-			.parallax-section {
-				padding: 10rem 2rem;
-				text-align: center;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.parallax-bg {
-				position: absolute;
-				top: -50%;
-				left: 0;
-				width: 100%;
-				height: 200%;
-				background: linear-gradient(135deg, var(--gold) 0%, #d4b88a 100%);
-				opacity: 0.05;
-				transform: translateY(0);
-				transition: transform 0.5s ease-out;
-			}
-
-			.intro-content {
-				position: relative;
-				z-index: 2;
-				max-width: 900px;
-				margin: 0 auto;
-			}
-
-			.intro-content h2 {
-				font-size: clamp(2.5rem, 6vw, 4.5rem);
-				margin-bottom: 2rem;
-				color: var(--dark);
-			}
-
-			.intro-content p {
-				font-size: 1.3rem;
-				line-height: 2;
-				color: #6a6a6a;
-			}
-
-			.divider {
-				width: 100px;
-				height: 3px;
-				background: var(--gold);
-				margin: 3rem auto;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.divider::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -100%;
-				width: 50%;
-				height: 100%;
-				background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-				animation: shimmer 2s infinite;
-			}
-
-			/* Hotel Cards with Hover Effects */
-			.hotels-section {
-				padding: 6rem 2rem;
-				background: var(--off-white);
-			}
-
-			.hotel-card {
-				max-width: 1400px;
-				margin: 0 auto 6rem;
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				min-height: 600px;
-				background: white;
-				border-radius: 12px;
-				overflow: hidden;
-				box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-				transition: transform 0.3s ease, box-shadow 0.3s ease;
-			}
-
-			.hotel-card:hover {
-				transform: translateY(-10px);
-				box-shadow: 0 30px 80px rgba(0,0,0,0.15);
-			}
-
-			.hotel-image {
-				position: relative;
-				overflow: hidden;
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			}
-
-			.hotel-image::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -100%;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-				transition: left 0.6s ease;
-			}
-
-			.hotel-card:hover .hotel-image::after {
-				left: 100%;
-			}
-
-			.hotel-info {
-				padding: 4rem;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
-
-			.hotel-label {
-				font-size: 0.85rem;
-				letter-spacing: 3px;
-				text-transform: uppercase;
-				color: var(--gold);
-				margin-bottom: 1.5rem;
-				font-weight: 500;
-			}
-
-			.hotel-info h3 {
-				font-size: clamp(2rem, 4vw, 3rem);
-				margin-bottom: 1.5rem;
-				line-height: 1.2;
-			}
-
-			.hotel-description {
-				font-size: 1.1rem;
-				line-height: 1.9;
-				color: #6a6a6a;
-				margin-bottom: 2.5rem;
-			}
-
-			.hotel-link {
-				display: inline-flex;
-				align-items: center;
-				gap: 1rem;
-				color: var(--gold);
-				text-decoration: none;
-				font-size: 0.9rem;
-				letter-spacing: 2px;
-				text-transform: uppercase;
-				transition: gap 0.3s ease;
-				font-weight: 500;
-			}
-
-			.hotel-link:hover {
-				gap: 1.8rem;
-			}
-
-			.hotel-link::after {
-				content: '→';
-				font-size: 1.3rem;
-				transition: transform 0.3s ease;
-			}
-
-			.hotel-link:hover::after {
-				transform: translateX(5px);
-			}
-
-			/* Animations */
-			@keyframes heroTitleFadeIn {
-				from {
-					opacity: 0;
-					transform: translateY(50px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			@keyframes heroSubtitleFadeIn {
-				from {
-					opacity: 0;
-					transform: translateY(30px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			@keyframes heroButtonsFadeIn {
-				from {
-					opacity: 0;
-					transform: translateY(30px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			@keyframes shimmer {
-				0% { left: -100%; }
-				100% { left: 100%; }
-			}
-
-			/* Responsive */
-			@media (max-width: 968px) {
-				.hotel-card {
-					grid-template-columns: 1fr;
-				}
-
-				.hotel-image {
-					min-height: 400px;
-				}
-
-				.hotel-info {
-					padding: 3rem 2rem;
-				}
-			}
-
-			@media (max-width: 768px) {
-				.hero h1 {
-					font-size: clamp(2.5rem, 10vw, 4rem);
-				}
-
-				.hero-subtitle {
-					font-size: clamp(0.8rem, 2vw, 1.2rem);
-					letter-spacing: 4px;
-				}
-
-				.hotels-nav {
-					flex-direction: column;
-					gap: 1.5rem;
-					width: 100%;
-					max-width: 400px;
-				}
-
-				.hotel-button {
-					padding: 1.5rem 2.5rem;
-					font-size: 0.9rem;
-					width: 100%;
-				}
-			}
-		</style>
 	</head>
 	<body>
 		<Header />
-		
-		<!-- Hero Section -->
+
+		<!-- Hero -->
 		<section class="hero">
 			<div class="hero-slideshow">
-				<div class="hero-slide active"></div>
-				<div class="hero-slide"></div>
-				<div class="hero-slide"></div>
-				<div class="hero-slide"></div>
-				<div class="hero-slide"></div>
-			</div>
-			<div class="hero-overlay"></div>
+				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassianongomainview.png')"></div>
+				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassiacoyahmain.png')"></div>
+				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassiacoyahhotelroom.png')"></div>
+				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassianongowedding.png')"></div>
+				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/Fassiacoyahpool.png')"></div>
+			
 			<div class="hero-content">
 				<h1>Les Hôtels Fassia</h1>
 				<p class="hero-subtitle">Hospitalité Guinéenne</p>
-				
 				<div class="hotels-nav">
-					<a href="/hotel-nongo" class="hotel-button">
-						Hôtel Fassia Nongo
-					</a>
-					<a href="/hotel-coyah" class="hotel-button">
-						Hôtel Fassia Coyah
-					</a>
+					<a href="#nongo" class="hotel-button">Fassia Résidence Nongo</a>
+					<a href="#coyah" class="hotel-button">Fassia Guest House Coyah</a>
 				</div>
 			</div>
-			
 			<div class="slide-indicators">
-				<div class="indicator active" data-slide="0"></div>
-				<div class="indicator" data-slide="1"></div>
-				<div class="indicator" data-slide="2"></div>
-				<div class="indicator" data-slide="3"></div>
-				<div class="indicator" data-slide="4"></div>
+				<button class="indicator active" data-slide="0" aria-label="Diapositive 1"></button>
+				<button class="indicator" data-slide="1" aria-label="Diapositive 2"></button>
+				<button class="indicator" data-slide="2" aria-label="Diapositive 3"></button>
+				<button class="indicator" data-slide="3" aria-label="Diapositive 4"></button>
+				<button class="indicator" data-slide="4" aria-label="Diapositive 5"></button>
 			</div>
 		</section>
 
-		<!-- Intro with Parallax -->
+		<!-- Intro -->
 		<section class="parallax-section fade-in">
 			<div class="parallax-bg"></div>
 			<div class="intro-content">
 				<h2>Une Expérience Inoubliable</h2>
 				<div class="divider"></div>
 				<p>
-					Deux établissements d'exception en Guinée, où l'élégance moderne rencontre 
-					la chaleur de l'hospitalité africaine. Découvrez nos espaces raffinés et 
+					Deux établissements d'exception en Guinée, où l'élégance moderne rencontre
+					la chaleur de l'hospitalité africaine. Découvrez nos espaces raffinés et
 					notre service personnalisé.
 				</p>
 			</div>
 		</section>
 
-		<!-- Hotels Cards -->
+		<!-- Hotels -->
 		<section class="hotels-section">
-			<!-- Nongo -->
-			<div class="hotel-card fade-in-left">
-				<div class="hotel-image"></div>
+
+			<!-- NONGO -->
+			<div class="hotel-card fade-in-left" id="nongo">
+				<div class="hotel-image">
+					<img src="/Nongo/Coyah/fassianongomainview.png" alt="Fassia Résidence Nongo" loading="lazy" />
+				</div>
 				<div class="hotel-info">
 					<div class="hotel-label">Conakry</div>
 					<h3>Fassia Résidence<br>Nongo</h3>
 					<p class="hotel-description">
-						Dans le quartier dynamique de Nongo, notre hôtel offre des chambres 
-						luxueuses, un restaurant, une piscine et des salles de conférence modernes.
+						Situé dans le quartier résidentiel de Nongo, cet établissement offre un cadre
+						moderne et raffiné, idéal pour les voyageurs d'affaires comme pour les loisirs.
 					</p>
-					<a href="/hotel-nongo" class="hotel-link">
-						Découvrir l'hôtel
-					</a>
+					<ul class="amenities">
+						<li>Chambres climatisées</li>
+						<li>Piscine et Terrain de Tennis&Foot</li>
+						<li>Bar et room service</li>
+						<li>Salles de conférence équipées</li>
+						<li>Parking sécurisé</li>
+						<li>Wifi haut débit</li>
+						<li>Réception 24h/24</li>
+					</ul>
 				</div>
 			</div>
 
-			<!-- Coyah -->
-			<div class="hotel-card fade-in-right">
+			<!-- NONGO GALLERY -->
+			<div class="hotel-gallery stagger-container fade-in">
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassianongohotelroom.png" alt="Salon de la Chambre Suite" loading="lazy" />
+					<figcaption>Salon de la Chambre Suite</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassiacoyaheventpool.png" alt="Piscine" loading="lazy" />
+					<figcaption>Piscine et Espace pour evenement </figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassianongoconference.png" alt="Salle de Conférence" loading="lazy" />
+					<figcaption>Salle de Conférence Principale</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassianongoroom.png" alt="Chambre Suite" loading="lazy" />
+					<figcaption>Chambre Suite</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassianongowedding.png" alt="Événement" loading="lazy" />
+					<figcaption>Terrain de Tennis — Événement - Marriage</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassianongoviewfromsea.png" alt="Espace Exterieur" loading="lazy" />
+					<figcaption>Espace Extérieur</figcaption>
+				</figure>
+			</div>
+
+			<div class="hotel-divider"></div>
+
+			<!-- COYAH -->
+			<div class="hotel-card fade-in-right" id="coyah">
 				<div class="hotel-info">
 					<div class="hotel-label">Coyah</div>
-					<h3>Hôtel Fassia<br>Coyah</h3>
+					<h3>Fassia Guest<br>House Coyah</h3>
 					<p class="hotel-description">
-						À Coyah, profitez d'un cadre élégant avec toutes les installations 
-						modernes pour un séjour mémorable en Guinée.
+						À une heure de Conakry, la Fassia Guest House propose un séjour calme et
+						confortable dans la ville de Coyah, avec toutes les commodités essentielles.
 					</p>
-					<a href="/hotel-coyah" class="hotel-link">
-						Découvrir l'hôtel
-					</a>
+					<ul class="amenities">
+						<li>Chambres climatisées</li>
+						<li>Piscine - Terrain de Tennis & Foot</li>
+						<li>Restauration sur place</li>
+						<li>Salle de réunion</li>
+						<li>Lounge et Boîte de Nuit</li>
+						<li>Wifi haut débit</li>
+						<li>Réception 24h/24</li>
+					</ul>
 				</div>
-				<div class="hotel-image"></div>
+				<div class="hotel-image">
+					<img src="/Nongo/Coyah/FassiaCoyahImagePoolandBuilding.png" alt="Fassia Résidence Coyah" loading="lazy" />
+				</div>
+			</div>
+
+			<!-- COYAH GALLERY -->
+			<div class="hotel-gallery stagger-container fade-in">
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassiacoyahchambre.jpg" alt="Salon de la Chambre Suite" loading="lazy" />
+					<figcaption>Chambre Standard</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassiacoyahlounge2.png" alt="Lounge et Boîte de nuit" loading="lazy" />
+					<figcaption>Lounge et Boîte de nuit</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassiacoyahatelier.png" alt="Salle de Réunion" loading="lazy" />
+					<figcaption>Séminaire - Salle de Reunion - Ateliers</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassiacoyahrestaurant.png" alt="Restaurant " loading="lazy" />
+					<figcaption>Restaurant</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/Fassiacoyahpool.png" alt="Piscine" loading="lazy" />
+					<figcaption>Façade de l'Établissement</figcaption>
+				</figure>
+				<figure class="photo-item stagger-item">
+					<img src="/Nongo/Coyah/fassiacoyahtennis.png" alt="Terrain de Tennis et Façade  du 2eme batimement" loading="lazy" />
+					<figcaption>Terrain de Tennis et Façade  du 2eme batimement </figcaption>
+				</figure>
+			</div>
+
+		</section>
+
+		<!-- Map & Contact -->
+		<section class="map-contact-section bg-dark" id="contact">
+			<div class="section-header fade-in">
+				<h2 class="text-white">Nous Trouver</h2>
+				<div class="divider"></div>
+				<p class="section-subtitle">Deux établissements à votre service en Guinée</p>
+			</div>
+
+			<div class="map-contact-grid">
+
+				<!-- LEFT: Contact Cards -->
+				<div class="contact-col fade-in-left">
+					<div class="contact-card">
+						<h3>Fassia Résidence Nongo</h3>
+						<div class="contact-item">
+							<div class="contact-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.49 2 2 0 0 1 3.62 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+							</div>
+							<div>
+								<p class="contact-label">Téléphone</p>
+								<a href="tel:+224628XXXXXX">+224 628 XX XX XX</a>
+							</div>
+						</div>
+						<div class="contact-item">
+							<div class="contact-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+							</div>
+							<div>
+								<p class="contact-label">Adresse</p>
+								<p>Quartier Nongo, Conakry, Guinée</p>
+							</div>
+						</div>
+						<div class="contact-item">
+							<div class="contact-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+							</div>
+							<div>
+								<p class="contact-label">Horaires</p>
+								<p>Réception ouverte 24h/24</p>
+							</div>
+						</div>
+						<div class="contact-buttons">
+							<a href="tel:+224628XXXXXX" class="call-button">Appeler</a>
+							<a href="https://www.facebook.com/p/Fassia-Residence-Nongo-100063245107199/" target="_blank" rel="noopener" class="facebook-button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+								Facebook
+							</a>
+						</div>
+					</div>
+
+					<div class="contact-card">
+						<h3>Fassia Guest House Coyah</h3>
+						<div class="contact-item">
+							<div class="contact-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.49 2 2 0 0 1 3.62 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+							</div>
+							<div>
+								<p class="contact-label">Téléphone</p>
+								<a href="tel:+224629XXXXXX">+224 629 XX XX XX</a>
+							</div>
+						</div>
+						<div class="contact-item">
+							<div class="contact-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+							</div>
+							<div>
+								<p class="contact-label">Adresse</p>
+								<p>Centre-ville, Coyah, Guinée</p>
+							</div>
+						</div>
+						<div class="contact-item">
+							<div class="contact-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+							</div>
+							<div>
+								<p class="contact-label">Horaires</p>
+								<p>Réception ouverte 24h/24</p>
+							</div>
+						</div>
+						<div class="contact-buttons">
+							<a href="tel:+224629XXXXXX" class="call-button">Appeler</a>
+							<a href="https://www.facebook.com/p/Complexe-H%C3%B4telier-Fassia-Guest-House-100083154259327/" target="_blank" rel="noopener" class="facebook-button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+								Facebook
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- RIGHT: Maps -->
+				<div class="maps-col fade-in-right">
+					<div class="map-block">
+						<p class="map-label">Fassia Résidence Nongo — Conakry</p>
+						<a href="https://www.google.com/maps/search/Nongo+Conakry+Guinee" target="_blank" rel="noopener" class="map-wrapper" aria-label="Voir sur Google Maps">
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47043.39331610209!2d-13.69742745473857!3d9.613238064993622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf1cd7dda4a1901b%3A0xc91171a419d5c347!2sHotel%20Fassia!5e0!3m2!1sen!2sus!4v1772754080526!5m2!1sen!2sus" 
+								width="100%"
+								height="300"
+								style="border:0;"
+								allowfullscreen=""
+								loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"
+								title="Carte Fassia Résidence Nongo">
+							</iframe>
+							<div class="map-overlay">
+								<span>Voir sur Google Maps</span>
+							</div>
+						</a>
+					</div>
+
+					<div class="map-block">
+						<p class="map-label">Fassia Guest House — Coyah</p>
+						<a href="https://www.google.com/maps/search/Coyah+Guinee" target="_blank" rel="noopener" class="map-wrapper" aria-label="Voir sur Google Maps">
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3932.55088327991!2d-13.4737678!3d9.7193178!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf02d50e9a272807%3A0x51ae75f7569cac87!2sFassia%20Guest%20House!5e0!3m2!1sen!2sus!4v1772753803750!5m2!1sen!2sus" 
+								width="100%"
+								height="300"
+								style="border:0;"
+								allowfullscreen=""
+								loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"
+								title="Carte Fassia Guest House Coyah">
+							</iframe>
+							<div class="map-overlay">
+								<span>Voir sur Google Maps</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
 			</div>
 		</section>
 
+		<!-- Lightbox -->
+		<div class="lightbox" id="lightbox">
+			<button class="lightbox-close" id="lightbox-close" aria-label="Fermer">&#x2715;</button>
+			<figure class="lightbox-figure">
+				<img id="lightbox-img" src="" alt="" />
+				<figcaption id="lightbox-caption"></figcaption>
+			</figure>
+		</div>
+
 		<Footer />
-
-		<script>
-			// Hero Slideshow
-			let currentSlide = 0;
-			const slides = document.querySelectorAll('.hero-slide');
-			const indicators = document.querySelectorAll('.indicator');
-			
-			function goToSlide(index) {
-				slides[currentSlide].classList.remove('active');
-				indicators[currentSlide].classList.remove('active');
-				currentSlide = index;
-				slides[currentSlide].classList.add('active');
-				indicators[currentSlide].classList.add('active');
-			}
-			
-			function nextSlide() {
-				const next = (currentSlide + 1) % slides.length;
-				goToSlide(next);
-			}
-			
-			let slideInterval = setInterval(nextSlide, 5000);
-			
-			indicators.forEach((indicator, index) => {
-				indicator.addEventListener('click', () => {
-					clearInterval(slideInterval);
-					goToSlide(index);
-					slideInterval = setInterval(nextSlide, 5000);
-				});
-			});
-
-			// Scroll Animations
-			const observerOptions = {
-				threshold: 0.2,
-				rootMargin: '0px 0px -50px 0px'
-			};
-
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry, index) => {
-					if (entry.isIntersecting) {
-						// Add stagger delay for multiple items
-						setTimeout(() => {
-							entry.target.classList.add('visible');
-						}, index * 100);
-					}
-				});
-			}, observerOptions);
-
-			// Observe all animated elements
-			document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in, .stagger-item').forEach(el => {
-				observer.observe(el);
-			});
-
-			// Parallax effect
-			window.addEventListener('scroll', () => {
-				const parallaxBg = document.querySelector('.parallax-bg');
-				if (parallaxBg) {
-					const scrolled = window.pageYOffset;
-					parallaxBg.style.transform = `translateY(${scrolled * 0.3}px)`;
-				}
-			});
-
-			// Smooth scroll for anchor links
-			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-				anchor.addEventListener('click', function (e) {
-					e.preventDefault();
-					const target = document.querySelector(this.getAttribute('href'));
-					if (target) {
-						target.scrollIntoView({
-							behavior: 'smooth',
-							block: 'start'
-						});
-					}
-				});
-			});
-		</script>
 	</body>
 </html>
+
+<style>
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+
+	:root {
+		--gold: #C5A572;
+		--dark: #18181b;
+		--dark2: #27272a;
+		--off-white: #fafafa;
+	}
+
+	html { scroll-behavior: smooth; }
+
+	body {
+		font-family: 'Lato', sans-serif;
+		color: #2a2a2a;
+		background: white;
+		overflow-x: hidden;
+	}
+
+	h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
+
+	/* ANIMATIONS */
+	.fade-in {
+		opacity: 0; transform: translateY(60px);
+		transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+	}
+	.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+	.fade-in-left {
+		opacity: 0; transform: translateX(-60px);
+		transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+	}
+	.fade-in-left.visible { opacity: 1; transform: translateX(0); }
+
+	.fade-in-right {
+		opacity: 0; transform: translateX(60px);
+		transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+	}
+	.fade-in-right.visible { opacity: 1; transform: translateX(0); }
+
+	.stagger-item {
+		opacity: 0; transform: translateY(30px);
+		transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	}
+	.stagger-item.visible { opacity: 1; transform: translateY(0); }
+
+	/* HERO */
+	.hero { height: 100vh; position: relative; overflow: hidden; }
+	.hero-slideshow { position: absolute; width: 100%; height: 100%; }
+	.hero-slide {
+		position: absolute; width: 100%; height: 100%;
+		opacity: 0; transition: opacity 2s ease-in-out;
+		background-size: cover; background-position: center;
+	}
+	.hero-slide.active { opacity: 1; }
+	.hero-overlay {
+		position: absolute; width: 100%; height: 100%;
+		background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+		z-index: 1;
+	}
+	.hero-content {
+		position: relative; z-index: 2; height: 100%;
+		display: flex; flex-direction: column;
+		justify-content: center; align-items: center;
+		text-align: center; color: white; padding: 2rem;
+	}
+	.hero h1 {
+		font-size: clamp(3.5rem, 12vw, 8rem);
+		margin-bottom: 1.5rem; font-weight: 300;
+		letter-spacing: 3px; text-shadow: 0 3px 30px rgba(0,0,0,0.5);
+		animation: heroTitleFadeIn 1.2s ease-out;
+	}
+	.hero-subtitle {
+		font-size: clamp(1rem, 2.5vw, 1.6rem); font-weight: 300;
+		letter-spacing: 6px; text-transform: uppercase;
+		margin-bottom: 4rem; opacity: 0.95;
+		animation: heroSubtitleFadeIn 1.4s ease-out;
+	}
+	.hotels-nav {
+		display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+		animation: heroButtonsFadeIn 1.6s ease-out;
+	}
+	.hotel-button {
+		padding: 1.8rem 3.5rem; background: transparent; color: white;
+		border: 2px solid white; text-decoration: none;
+		font-size: 1rem; letter-spacing: 3px; text-transform: uppercase;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		font-weight: 500; position: relative; overflow: hidden;
+	}
+	.hotel-button::before {
+		content: ''; position: absolute; top: 50%; left: 50%;
+		width: 0; height: 0; background: white;
+		transition: width 0.4s ease, height 0.4s ease;
+		transform: translate(-50%, -50%); z-index: -1; border-radius: 50%;
+	}
+	.hotel-button:hover::before { width: 300%; height: 300%; }
+	.hotel-button:hover { color: var(--dark); transform: translateY(-3px); box-shadow: 0 10px 40px rgba(255,255,255,0.3); }
+
+	.slide-indicators {
+		position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+		display: flex; gap: 1rem; z-index: 3;
+	}
+	.indicator {
+		width: 12px; height: 12px; border-radius: 50%;
+		background: rgba(255,255,255,0.4); border: 2px solid white;
+		cursor: pointer; transition: all 0.3s ease;
+	}
+	.indicator.active { background: white; transform: scale(1.3); }
+
+	/* INTRO */
+	.parallax-section {
+		padding: 10rem 2rem; text-align: center; position: relative; overflow: hidden;
+	}
+	.parallax-bg {
+		position: absolute; top: -50%; left: 0; width: 100%; height: 200%;
+		background: linear-gradient(135deg, var(--gold) 0%, #d4b88a 100%); opacity: 0.05;
+	}
+	.intro-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+	.intro-content h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 2rem; color: var(--dark); }
+	.intro-content p { font-size: 1.3rem; line-height: 2; color: #6a6a6a; }
+
+	.divider {
+		width: 100px; height: 3px; background: var(--gold);
+		margin: 3rem auto; position: relative; overflow: hidden;
+	}
+	.divider::after {
+		content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+		animation: shimmer 2s infinite;
+	}
+
+	/* HOTEL CARDS */
+	.hotels-section { padding: 6rem 2rem; background: var(--off-white); }
+
+	.hotel-card {
+		max-width: 1400px; margin: 0 auto 3rem;
+		display: grid; grid-template-columns: 1fr 1fr;
+		min-height: 550px; background: white; border-radius: 12px; overflow: hidden;
+		box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+	.hotel-card:hover { transform: translateY(-6px); box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
+
+	.hotel-image { position: relative; overflow: hidden; }
+	.hotel-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+	.hotel-card:hover .hotel-image img { transform: scale(1.04); }
+
+	.hotel-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+
+	.hotel-label {
+		font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase;
+		color: var(--gold); margin-bottom: 1.5rem; font-weight: 500;
+	}
+	.hotel-info h3 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; line-height: 1.2; }
+	.hotel-description { font-size: 1.05rem; line-height: 1.9; color: #6a6a6a; margin-bottom: 2rem; }
+
+	.amenities { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+	.amenities li {
+		font-size: 0.95rem; color: #5a5a5a;
+		padding-left: 1.2rem; position: relative; line-height: 1.5;
+	}
+	.amenities li::before {
+		content: ''; position: absolute; left: 0; top: 0.55em;
+		width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+	}
+
+	/* GALLERY */
+	.hotel-gallery {
+		max-width: 1400px; margin: 0 auto 2rem;
+		display: grid; grid-template-columns: repeat(3, 1fr);
+		gap: 1rem; padding: 0;
+	}
+
+	.photo-item {
+		position: relative; overflow: hidden; border-radius: 8px;
+		cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+		background: var(--dark);
+	}
+	.photo-item img {
+		width: 100%; aspect-ratio: 4/3; object-fit: cover;
+		display: block; transition: transform 0.5s ease, opacity 0.3s ease;
+	}
+	.photo-item:hover img { transform: scale(1.06); opacity: 0.85; }
+
+	.photo-item figcaption {
+		position: absolute; bottom: 0; left: 0; right: 0;
+		padding: 0.6rem 1rem;
+		background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+		color: white; font-size: 0.8rem; letter-spacing: 0.5px;
+		transform: translateY(100%); transition: transform 0.3s ease;
+	}
+	.photo-item:hover figcaption { transform: translateY(0); }
+
+	.hotel-divider {
+		max-width: 1400px; margin: 5rem auto;
+		height: 1px;
+		background: linear-gradient(to right, transparent, var(--gold), transparent);
+	}
+
+	/* MAP & CONTACT */
+	.map-contact-section { padding: 8rem 2rem; background: var(--dark); }
+
+	.section-header { text-align: center; margin-bottom: 5rem; }
+	.section-header h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
+	.text-white { color: white; }
+	.section-subtitle { color: #a1a1aa; font-size: 1.05rem; margin-top: 1.5rem; }
+
+	.map-contact-grid {
+		max-width: 1400px; margin: 0 auto;
+		display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+	}
+
+	/* Contact Cards */
+	.contact-col { display: flex; flex-direction: column; gap: 2rem; }
+
+	.contact-card {
+		background: var(--dark2); border-radius: 12px; padding: 2.5rem;
+		border: 1px solid #3f3f46; transition: border-color 0.3s ease;
+	}
+	.contact-card:hover { border-color: var(--gold); }
+	.contact-card h3 { color: var(--gold); font-size: 1.3rem; margin-bottom: 1.8rem; font-family: 'Playfair Display', serif; font-weight: 400; }
+
+	.contact-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.4rem; }
+	.contact-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+	.contact-label { color: #71717a; font-size: 0.8rem; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+	.contact-item p, .contact-item a { color: white; text-decoration: none; font-size: 0.95rem; line-height: 1.5; }
+	.contact-item a:hover { color: var(--gold); }
+
+	.contact-buttons { display: flex; gap: 1rem; margin-top: 1.8rem; }
+
+	.call-button {
+		flex: 1; padding: 0.85rem 1rem; background: var(--gold);
+		color: var(--dark); font-weight: 600; text-align: center;
+		border-radius: 6px; text-decoration: none; font-size: 0.9rem;
+		transition: background 0.3s ease, transform 0.2s ease;
+	}
+	.call-button:hover { background: #b8935d; transform: scale(1.02); }
+
+	.facebook-button {
+		flex: 1; padding: 0.85rem 1rem; background: #1877f2;
+		color: white; font-weight: 600; text-align: center;
+		border-radius: 6px; text-decoration: none; font-size: 0.9rem;
+		display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+		transition: background 0.3s ease, transform 0.2s ease;
+	}
+	.facebook-button:hover { background: #1565d8; transform: scale(1.02); }
+
+	/* Maps */
+	.maps-col { display: flex; flex-direction: column; gap: 2rem; }
+
+	.map-block { display: flex; flex-direction: column; gap: 0.75rem; }
+
+	.map-label {
+		color: #a1a1aa; font-size: 0.8rem; text-transform: uppercase;
+		letter-spacing: 1px; font-weight: 500;
+	}
+
+	.map-wrapper {
+		position: relative; display: block; border-radius: 10px;
+		overflow: hidden; text-decoration: none;
+		border: 1px solid #3f3f46; transition: border-color 0.3s ease;
+	}
+	.map-wrapper:hover { border-color: var(--gold); }
+
+	.map-wrapper iframe {
+		display: block; width: 100%; height: 280px;
+		border: 0; pointer-events: none;
+	}
+
+	.map-overlay {
+		position: absolute; inset: 0;
+		display: flex; align-items: center; justify-content: center;
+		background: rgba(0,0,0,0); transition: background 0.3s ease;
+	}
+	.map-overlay span {
+		background: var(--gold); color: var(--dark);
+		padding: 0.6rem 1.4rem; border-radius: 4px;
+		font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;
+		opacity: 0; transform: translateY(6px);
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+	.map-wrapper:hover .map-overlay { background: rgba(0,0,0,0.35); }
+	.map-wrapper:hover .map-overlay span { opacity: 1; transform: translateY(0); }
+
+	/* LIGHTBOX */
+	.lightbox {
+		display: none; position: fixed; inset: 0;
+		background: rgba(0,0,0,0.95); z-index: 1000;
+		align-items: center; justify-content: center; padding: 2rem;
+	}
+	.lightbox.open { display: flex; }
+	.lightbox-figure { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+	.lightbox-figure img { max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 4px; }
+	.lightbox-figure figcaption { color: #a1a1aa; font-size: 0.9rem; letter-spacing: 0.5px; text-align: center; }
+	.lightbox-close {
+		position: absolute; top: 1.5rem; right: 1.5rem;
+		background: none; border: none; color: white;
+		font-size: 1.8rem; cursor: pointer; padding: 0.5rem;
+		transition: color 0.2s ease; line-height: 1;
+	}
+	.lightbox-close:hover { color: var(--gold); }
+
+	/* KEYFRAMES */
+	@keyframes heroTitleFadeIn {
+		from { opacity: 0; transform: translateY(50px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	@keyframes heroSubtitleFadeIn {
+		from { opacity: 0; transform: translateY(30px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	@keyframes heroButtonsFadeIn {
+		from { opacity: 0; transform: translateY(30px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	@keyframes shimmer {
+		0% { left: -100%; }
+		100% { left: 100%; }
+	}
+
+	/* RESPONSIVE */
+	@media (max-width: 1024px) {
+		.map-contact-grid { grid-template-columns: 1fr; }
+		.maps-col { flex-direction: row; }
+		.map-block { flex: 1; }
+	}
+	@media (max-width: 968px) {
+		.hotel-card { grid-template-columns: 1fr; }
+		.hotel-image { min-height: 320px; }
+		.hotel-info { padding: 2.5rem 2rem; }
+		.hotel-gallery { grid-template-columns: repeat(2, 1fr); }
+	}
+	@media (max-width: 640px) {
+		.hotel-gallery { grid-template-columns: 1fr; }
+		.hotels-nav { flex-direction: column; gap: 1.5rem; width: 100%; max-width: 400px; }
+		.hotel-button { padding: 1.5rem 2.5rem; font-size: 0.9rem; width: 100%; text-align: center; }
+		.maps-col { flex-direction: column; }
+		.contact-buttons { flex-direction: column; }
+	}
+</style>
+
+<script>
+	// Hero Slideshow
+	let currentSlide = 0;
+	const slides = document.querySelectorAll('.hero-slide');
+	const indicators = document.querySelectorAll('.indicator');
+
+	function goToSlide(index) {
+		slides[currentSlide].classList.remove('active');
+		indicators[currentSlide].classList.remove('active');
+		currentSlide = index;
+		slides[currentSlide].classList.add('active');
+		indicators[currentSlide].classList.add('active');
+	}
+
+	let slideInterval = setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
+
+	indicators.forEach((btn, i) => {
+		btn.addEventListener('click', () => {
+			clearInterval(slideInterval);
+			goToSlide(i);
+			slideInterval = setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
+		});
+	});
+
+	// Scroll Animations
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry, i) => {
+			if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+		});
+	}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+	document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => observer.observe(el));
+
+	document.querySelectorAll('.stagger-container').forEach(container => {
+		const io = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					container.querySelectorAll('.stagger-item').forEach((item, i) => {
+						setTimeout(() => item.classList.add('visible'), i * 100);
+					});
+					io.unobserve(entry.target);
+				}
+			});
+		}, { threshold: 0.1 });
+		io.observe(container);
+	});
+
+	// Lightbox
+	const lightbox = document.getElementById('lightbox');
+	const lightboxImg = document.getElementById('lightbox-img');
+	const lightboxCaption = document.getElementById('lightbox-caption');
+
+	document.querySelectorAll('.photo-item').forEach(item => {
+		item.addEventListener('click', () => {
+			const img = item.querySelector('img');
+			const caption = item.querySelector('figcaption');
+			lightboxImg.src = img.src.replace('w=800', 'w=1600');
+			lightboxImg.alt = img.alt;
+			lightboxCaption.textContent = caption ? caption.textContent : '';
+			lightbox.classList.add('open');
+		});
+	});
+
+	document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
+	lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+</script>
