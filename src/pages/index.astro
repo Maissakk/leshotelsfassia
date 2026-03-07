@@ -10,7 +10,8 @@ import Footer from '../components/Footer.astro';
 		<BaseHead title="Les Résidences Fassia - Guinée" description="Deux hôtels d'exception en Guinée" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Lato:wght@300;400;500&display=swap" media="print" onload="this.media='all'" />
+		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Lato:wght@300;400;500&display=swap"></noscript>
 	</head>
 	<body>
 		<Header />
@@ -18,12 +19,15 @@ import Footer from '../components/Footer.astro';
 		<!-- Hero -->
 		<section class="hero">
 			<div class="hero-slideshow">
-				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassianongomainview.png')"></div>
-				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassiacoyahmain.png')"></div>
-				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassiacoyahhotelroom.png')"></div>
-				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/fassianongowedding.png')"></div>
-				<div class="hero-slide" style="background-image: url('/Nongo/Coyah/Fassiacoyahpool.png')"></div>
-			
+				<div class="hero-slide active" style="background-image: url('/Nongo/Coyah/fassianongomainview.webp')"></div>
+				<div class="hero-slide" data-bg="/Nongo/Coyah/fassiacoyahmain.webp"></div>
+				<div class="hero-slide" data-bg="/Nongo/Coyah/fassiacoyahhotelroom.webp"></div>
+				<div class="hero-slide" data-bg="/Nongo/Coyah/fassianongowedding.webp"></div>
+				<div class="hero-slide" data-bg="/Nongo/Coyah/Fassiacoyahpool.webp"></div>
+			</div><!-- close hero-slideshow -->
+
+			<div class="hero-overlay"></div>
+
 			<div class="hero-content">
 				<h1>Les Résidences Fassia</h1>
 				<p class="hero-subtitle">Hospitalité Guinéenne</p>
@@ -61,7 +65,7 @@ import Footer from '../components/Footer.astro';
 			<!-- NONGO -->
 			<div class="hotel-card fade-in-left" id="nongo">
 				<div class="hotel-image">
-					<img src="/Nongo/Coyah/fassianongomainview.png" alt="Fassia Résidence Nongo" loading="lazy" />
+					<img src="/Nongo/Coyah/fassianongomainview.webp" alt="Fassia Résidence Nongo" loading="lazy" width="700" height="550" />
 				</div>
 				<div class="hotel-info">
 					<div class="hotel-label">Conakry</div>
@@ -72,7 +76,7 @@ import Footer from '../components/Footer.astro';
 					</p>
 					<ul class="amenities">
 						<li>Chambres climatisées</li>
-						<li>Piscine et Terrain de Tennis&Foot</li>
+						<li>Piscine et Terrain de Tennis &amp; Foot</li>
 						<li>Bar et room service</li>
 						<li>Salles de conférence équipées</li>
 						<li>Parking sécurisé</li>
@@ -85,27 +89,27 @@ import Footer from '../components/Footer.astro';
 			<!-- NONGO GALLERY -->
 			<div class="hotel-gallery stagger-container fade-in">
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassianongohotelroom.png" alt="Salon de la Chambre Suite" loading="lazy" />
+					<img src="/Nongo/Coyah/fassianongohotelroom.webp" alt="Salon de la Chambre Suite" loading="lazy" width="400" height="300" />
 					<figcaption>Salon de la Chambre Suite</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassiacoyaheventpool.png" alt="Piscine" loading="lazy" />
-					<figcaption>Piscine et Espace pour evenement </figcaption>
+					<img src="/Nongo/Coyah/fassiacoyaheventpool.webp" alt="Piscine" loading="lazy" width="400" height="300" />
+					<figcaption>Piscine et Espace pour événement</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassianongoconference.png" alt="Salle de Conférence" loading="lazy" />
+					<img src="/Nongo/Coyah/fassianongoconference.webp" alt="Salle de Conférence" loading="lazy" width="400" height="300" />
 					<figcaption>Salle de Conférence Principale</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassianongoroom.png" alt="Chambre Suite" loading="lazy" />
+					<img src="/Nongo/Coyah/fassianongoroom.webp" alt="Chambre Suite" loading="lazy" width="400" height="300" />
 					<figcaption>Chambre Suite</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassianongowedding.png" alt="Événement" loading="lazy" />
-					<figcaption>Terrain de Tennis — Événement - Marriage</figcaption>
+					<img src="/Nongo/Coyah/fassianongowedding.webp" alt="Événement" loading="lazy" width="400" height="300" />
+					<figcaption>Terrain de Tennis — Événement - Mariage</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassianongoviewfromsea.png" alt="Espace Exterieur" loading="lazy" />
+					<img src="/Nongo/Coyah/fassianongoviewfromsea.webp" alt="Espace Extérieur" loading="lazy" width="400" height="300" />
 					<figcaption>Espace Extérieur</figcaption>
 				</figure>
 			</div>
@@ -123,7 +127,7 @@ import Footer from '../components/Footer.astro';
 					</p>
 					<ul class="amenities">
 						<li>Chambres climatisées</li>
-						<li>Piscine - Terrain de Tennis & Foot</li>
+						<li>Piscine - Terrain de Tennis &amp; Foot</li>
 						<li>Restauration sur place</li>
 						<li>Salle de réunion</li>
 						<li>Lounge et Boîte de Nuit</li>
@@ -132,35 +136,35 @@ import Footer from '../components/Footer.astro';
 					</ul>
 				</div>
 				<div class="hotel-image">
-					<img src="/Nongo/Coyah/FassiaCoyahImagePoolandBuilding.png" alt="Fassia Résidence Coyah" loading="lazy" />
+					<img src="/Nongo/Coyah/FassiaCoyahImagePoolandBuilding.webp" alt="Fassia Guest House Coyah" loading="lazy" width="700" height="550" />
 				</div>
 			</div>
 
 			<!-- COYAH GALLERY -->
 			<div class="hotel-gallery stagger-container fade-in">
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassiacoyahchambre.jpg" alt="Salon de la Chambre Suite" loading="lazy" />
+					<img src="/Nongo/Coyah/fassiacoyahchambre.webp" alt="Chambre Standard" loading="lazy" width="400" height="300" />
 					<figcaption>Chambre Standard</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassiacoyahlounge2.png" alt="Lounge et Boîte de nuit" loading="lazy" />
+					<img src="/Nongo/Coyah/fassiacoyahlounge2.webp" alt="Lounge et Boîte de nuit" loading="lazy" width="400" height="300" />
 					<figcaption>Lounge et Boîte de nuit</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassiacoyahatelier.png" alt="Salle de Réunion" loading="lazy" />
-					<figcaption>Séminaire - Salle de Reunion - Ateliers</figcaption>
+					<img src="/Nongo/Coyah/fassiacoyahatelier.webp" alt="Salle de Réunion" loading="lazy" width="400" height="300" />
+					<figcaption>Séminaire - Salle de Réunion - Ateliers</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassiacoyahrestaurant.png" alt="Restaurant " loading="lazy" />
+					<img src="/Nongo/Coyah/fassiacoyahrestaurant.webp" alt="Restaurant" loading="lazy" width="400" height="300" />
 					<figcaption>Restaurant</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/Fassiacoyahpool.png" alt="Piscine" loading="lazy" />
+					<img src="/Nongo/Coyah/Fassiacoyahpool.webp" alt="Piscine" loading="lazy" width="400" height="300" />
 					<figcaption>Façade de l'Établissement</figcaption>
 				</figure>
 				<figure class="photo-item stagger-item">
-					<img src="/Nongo/Coyah/fassiacoyahtennis.png" alt="Terrain de Tennis et Façade  du 2eme batimement" loading="lazy" />
-					<figcaption>Terrain de Tennis et Façade  du 2eme batimement </figcaption>
+					<img src="/Nongo/Coyah/fassiacoyahtennis.webp" alt="Terrain de Tennis et Façade du 2ème bâtiment" loading="lazy" width="400" height="300" />
+					<figcaption>Terrain de Tennis et Façade du 2ème bâtiment</figcaption>
 				</figure>
 			</div>
 
@@ -186,7 +190,7 @@ import Footer from '../components/Footer.astro';
 							</div>
 							<div>
 								<p class="contact-label">Téléphone</p>
-								<a href="tel:+224628XXXXXX">+224 628 XX XX XX</a>
+								<a href="tel:+224629798413">+224 629 79 84 13</a>
 							</div>
 						</div>
 						<div class="contact-item">
@@ -208,7 +212,7 @@ import Footer from '../components/Footer.astro';
 							</div>
 						</div>
 						<div class="contact-buttons">
-							<a href="tel:+224628XXXXXX" class="call-button">Appeler</a>
+							<a href="tel:+224629798413" class="call-button">Appeler</a>
 							<a href="https://www.facebook.com/p/Fassia-Residence-Nongo-100063245107199/" target="_blank" rel="noopener" class="facebook-button">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
 								Facebook
@@ -224,7 +228,7 @@ import Footer from '../components/Footer.astro';
 							</div>
 							<div>
 								<p class="contact-label">Téléphone</p>
-								<a href="tel:+224629XXXXXX">+224 629 XX XX XX</a>
+								<a href="tel:+224629798413">+224 629 79 84 13</a>
 							</div>
 						</div>
 						<div class="contact-item">
@@ -246,7 +250,7 @@ import Footer from '../components/Footer.astro';
 							</div>
 						</div>
 						<div class="contact-buttons">
-							<a href="tel:+224629XXXXXX" class="call-button">Appeler</a>
+							<a href="tel:+224629798413" class="call-button">Appeler</a>
 							<a href="https://www.facebook.com/p/Complexe-H%C3%B4telier-Fassia-Guest-House-100083154259327/" target="_blank" rel="noopener" class="facebook-button">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
 								Facebook
@@ -261,7 +265,7 @@ import Footer from '../components/Footer.astro';
 						<p class="map-label">Fassia Résidence Nongo — Conakry</p>
 						<a href="https://www.google.com/maps/search/Nongo+Conakry+Guinee" target="_blank" rel="noopener" class="map-wrapper" aria-label="Voir sur Google Maps">
 							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47043.39331610209!2d-13.69742745473857!3d9.613238064993622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf1cd7dda4a1901b%3A0xc91171a419d5c347!2sHotel%20Fassia!5e0!3m2!1sen!2sus!4v1772754080526!5m2!1sen!2sus" 
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47043.39331610209!2d-13.69742745473857!3d9.613238064993622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf1cd7dda4a1901b%3A0xc91171a419d5c347!2sHotel%20Fassia!5e0!3m2!1sen!2sus!4v1772754080526!5m2!1sen!2sus"
 								width="100%"
 								height="300"
 								style="border:0;"
@@ -280,7 +284,7 @@ import Footer from '../components/Footer.astro';
 						<p class="map-label">Fassia Guest House — Coyah</p>
 						<a href="https://www.google.com/maps/search/Coyah+Guinee" target="_blank" rel="noopener" class="map-wrapper" aria-label="Voir sur Google Maps">
 							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3932.55088327991!2d-13.4737678!3d9.7193178!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf02d50e9a272807%3A0x51ae75f7569cac87!2sFassia%20Guest%20House!5e0!3m2!1sen!2sus!4v1772753803750!5m2!1sen!2sus" 
+								src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3932.55088327991!2d-13.4737678!3d9.7193178!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf02d50e9a272807%3A0x51ae75f7569cac87!2sFassia%20Guest%20House!5e0!3m2!1sen!2sus!4v1772753803750!5m2!1sen!2sus"
 								width="100%"
 								height="300"
 								style="border:0;"
@@ -651,10 +655,20 @@ import Footer from '../components/Footer.astro';
 		.maps-col { flex-direction: column; }
 		.contact-buttons { flex-direction: column; }
 	}
+
+	/* REDUCED MOTION — for slow devices and accessibility */
+	@media (prefers-reduced-motion: reduce) {
+		.fade-in, .fade-in-left, .fade-in-right, .stagger-item {
+			opacity: 1 !important; transform: none !important; transition: none !important;
+		}
+		.hero-slide { transition: none; }
+		.divider::after { animation: none; }
+		.hero h1, .hero-subtitle, .hotels-nav { animation: none; opacity: 1; transform: none; }
+	}
 </style>
 
 <script>
-	// Hero Slideshow
+	// Hero Slideshow — lazy loads slides 2–5 on demand
 	let currentSlide = 0;
 	const slides = document.querySelectorAll('.hero-slide');
 	const indicators = document.querySelectorAll('.indicator');
@@ -663,7 +677,13 @@ import Footer from '../components/Footer.astro';
 		slides[currentSlide].classList.remove('active');
 		indicators[currentSlide].classList.remove('active');
 		currentSlide = index;
-		slides[currentSlide].classList.add('active');
+		// Lazy-load background image on first view
+		const slide = slides[currentSlide] as HTMLElement;
+		if (slide.dataset.bg) {
+			slide.style.backgroundImage = `url('${slide.dataset.bg}')`;
+			delete slide.dataset.bg;
+		}
+		slide.classList.add('active');
 		indicators[currentSlide].classList.add('active');
 	}
 
@@ -702,14 +722,14 @@ import Footer from '../components/Footer.astro';
 
 	// Lightbox
 	const lightbox = document.getElementById('lightbox');
-	const lightboxImg = document.getElementById('lightbox-img');
+	const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
 	const lightboxCaption = document.getElementById('lightbox-caption');
 
 	document.querySelectorAll('.photo-item').forEach(item => {
 		item.addEventListener('click', () => {
-			const img = item.querySelector('img');
+			const img = item.querySelector('img') as HTMLImageElement;
 			const caption = item.querySelector('figcaption');
-			lightboxImg.src = img.src.replace('w=800', 'w=1600');
+			lightboxImg.src = img.src;
 			lightboxImg.alt = img.alt;
 			lightboxCaption.textContent = caption ? caption.textContent : '';
 			lightbox.classList.add('open');
